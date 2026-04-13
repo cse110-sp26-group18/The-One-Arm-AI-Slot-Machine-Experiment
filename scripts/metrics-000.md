@@ -36,7 +36,7 @@ runs_in_browser: No
 
 -
 
-# Drift / anomaly observations
+# Drift / anomaly observations / Insights
 
 <!-- Anything surprising vs. the other runs you've seen: unusual features,
      bizarre choices, refusal, truncated output, hallucinated APIs, etc. -->
