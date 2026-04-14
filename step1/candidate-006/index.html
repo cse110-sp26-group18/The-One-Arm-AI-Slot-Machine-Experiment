@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokenSink 9000 — The AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="machine">
+    <header class="marquee">
+      <h1>TokenSink&nbsp;9000</h1>
+      <p class="tagline">Now with <span class="blink">97%</span> more hallucinations!</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="stat-label">Tokens</span>
+        <span id="balance" class="stat-value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Bet</span>
+        <span id="bet" class="stat-value">10</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Spins</span>
+        <span id="spins" class="stat-value">0</span>
+      </div>
+    </section>
+
+    <section class="reels" aria-label="Slot reels">
+      <div class="reel" id="reel-0"><div class="strip"></div></div>
+      <div class="reel" id="reel-1"><div class="strip"></div></div>
+      <div class="reel" id="reel-2"><div class="strip"></div></div>
+    </section>
+
+    <div id="message" class="message">Insert tokens. Pray to the loss function.</div>
+
+    <section class="controls">
+      <button id="bet-down" class="btn small">-</button>
+      <button id="spin" class="btn spin">PULL LEVER</button>
+      <button id="bet-up" class="btn small">+</button>
+    </section>
+
+    <button id="beg" class="btn beg">Beg OpenAI for more tokens</button>
+
+    <footer class="fine-print">
+      <p>Must be a stochastic parrot to play. Gambling is a feature, not a bug.</p>
+      <p>Odds determined by a 175B parameter model that was definitely not trained on your data.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

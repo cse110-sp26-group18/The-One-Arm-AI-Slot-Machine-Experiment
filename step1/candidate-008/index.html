@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI Bandit</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>THE ONE-ARM <span class="ai">A.I.</span> BANDIT</h1>
+      <p class="tagline">Now with 100% more hallucinations</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="label">TOKENS</span>
+        <span id="tokens" class="value">100</span>
+      </div>
+      <div class="stat">
+        <span class="label">BET</span>
+        <span id="bet" class="value">5</span>
+      </div>
+      <div class="stat">
+        <span class="label">BURN RATE</span>
+        <span id="burn" class="value">$0</span>
+      </div>
+    </section>
+
+    <section class="reels" id="reels">
+      <div class="reel" data-reel="0"><div class="strip"></div></div>
+      <div class="reel" data-reel="1"><div class="strip"></div></div>
+      <div class="reel" data-reel="2"><div class="strip"></div></div>
+      <div class="payline"></div>
+    </section>
+
+    <section class="message" id="message">Insert tokens. Pray to the model gods.</section>
+
+    <section class="controls">
+      <button id="betDown" class="btn small">-</button>
+      <button id="spin" class="btn spin">SPIN THE PROMPT</button>
+      <button id="betUp" class="btn small">+</button>
+    </section>
+
+    <section class="extras">
+      <button id="beg" class="btn ghost">Beg Investors (+50)</button>
+      <button id="reset" class="btn ghost">New Seed Round</button>
+    </section>
+
+    <footer class="paytable">
+      <h3>PAYTABLE</h3>
+      <ul>
+        <li><span>🤖🤖🤖</span> AGI Achieved — 50x</li>
+        <li><span>🧠🧠🧠</span> Big Brain Model — 25x</li>
+        <li><span>⚡⚡⚡</span> GPU Goes Brrr — 15x</li>
+        <li><span>💾💾💾</span> Scraped the Internet — 10x</li>
+        <li><span>🪙🪙🪙</span> Token Farm — 8x</li>
+        <li><span>🎲🎲🎲</span> Pure Hallucination — 5x</li>
+        <li><span>Any Pair</span> Mid Output — 2x</li>
+        <li><span>📉 anywhere</span> Loss Spike — refund your bet</li>
+      </ul>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

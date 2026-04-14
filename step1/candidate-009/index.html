@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HalluciSlots 9000 — The AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="header">
+      <h1>HalluciSlots <span class="version">9000</span></h1>
+      <p class="tagline">Now with 175B parameters of pure luck</p>
+    </header>
+
+    <div class="hud">
+      <div class="hud-item">
+        <span class="label">Token Balance</span>
+        <span class="value" id="balance">1000</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">Bet / Spin</span>
+        <span class="value" id="bet">25</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">Last Payout</span>
+        <span class="value" id="payout">0</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel"><div class="strip" id="reel-0"></div></div>
+      <div class="reel"><div class="strip" id="reel-1"></div></div>
+      <div class="reel"><div class="strip" id="reel-2"></div></div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="message" id="message">Insert tokens. Pray to the stochastic parrot.</div>
+
+    <div class="controls">
+      <button class="btn bet-btn" id="betDown">− Bet</button>
+      <button class="btn spin-btn" id="spin">
+        <span class="spin-label">PULL THE LEVER</span>
+      </button>
+      <button class="btn bet-btn" id="betUp">+ Bet</button>
+    </div>
+
+    <div class="controls secondary">
+      <button class="btn small" id="maxBet">Max Bet</button>
+      <button class="btn small" id="beg">Beg for Tokens</button>
+      <button class="btn small" id="reset">Factory Reset</button>
+    </div>
+
+    <section class="paytable">
+      <h2>Paytable <small>(subject to model drift)</small></h2>
+      <ul>
+        <li><span>🤖 🤖 🤖</span> AGI Achieved — <b>x100</b></li>
+        <li><span>🧠 🧠 🧠</span> Big Brain Energy — <b>x50</b></li>
+        <li><span>💸 💸 💸</span> Venture Capital Inflow — <b>x40</b></li>
+        <li><span>⚡ ⚡ ⚡</span> GPU Overclocked — <b>x30</b></li>
+        <li><span>📊 📊 📊</span> Benchmark Farmed — <b>x20</b></li>
+        <li><span>🔮 🔮 🔮</span> Prompt Engineered — <b>x15</b></li>
+        <li><span>🍌 🍌 🍌</span> Banana (unclear why) — <b>x10</b></li>
+        <li><span>Any two match</span> Partial Hallucination — <b>x2</b></li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p>⚠ This machine does not constitute financial advice, nor a product announcement, nor actual intelligence.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

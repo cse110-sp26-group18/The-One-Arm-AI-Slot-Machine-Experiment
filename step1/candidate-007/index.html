@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HallucinAItor 9000 — The AI Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>HallucinAItor 9000</h1>
+      <p class="tagline">"Burning tokens so you don't have to."</p>
+    </header>
+
+    <div class="hud">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span id="balance" class="value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">Last Payout</span>
+        <span id="payout" class="value">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Bet</span>
+        <span id="bet" class="value">10</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel"><div class="strip" id="strip0"></div></div>
+      <div class="reel"><div class="strip" id="strip1"></div></div>
+      <div class="reel"><div class="strip" id="strip2"></div></div>
+    </div>
+
+    <div class="controls">
+      <button id="betDown" class="btn small">−</button>
+      <button id="spin" class="btn primary">SPIN</button>
+      <button id="betUp" class="btn small">+</button>
+    </div>
+
+    <div class="lever" id="lever" title="Pull me, I'm sentient">
+      <div class="lever-arm"></div>
+      <div class="lever-ball"></div>
+    </div>
+
+    <div class="message" id="message">Insert tokens. Generate regret.</div>
+
+    <footer class="legend">
+      <h3>Payout Table</h3>
+      <ul>
+        <li><span>🧠🧠🧠</span> AGI achieved — 50×</li>
+        <li><span>🤖🤖🤖</span> Bot trifecta — 25×</li>
+        <li><span>💸💸💸</span> Burn rate — 20×</li>
+        <li><span>📉📉📉</span> Bubble pop — 15×</li>
+        <li><span>🔥🔥🔥</span> GPU meltdown — 12×</li>
+        <li><span>☁️☁️☁️</span> Vaporware — 10×</li>
+        <li><span>🎲🎲🎲</span> Stochastic parrot — 8×</li>
+        <li><span>❓❓❓</span> Hallucination — 5×</li>
+        <li><span>Any pair</span> Pity reward — 2×</li>
+      </ul>
+      <p class="fine-print">* Not financial advice. Actually, not any advice. Model may hallucinate winnings.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
