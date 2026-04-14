@@ -1,0 +1,281 @@
+/* ── Reset & Base ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #0d0015 100%);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #e0d0ff;
+  overflow: hidden;
+}
+
+/* ── Machine Frame ───────────────────────────────── */
+.machine {
+  width: 420px;
+  background: linear-gradient(145deg, #1e1040, #140828);
+  border: 3px solid #6c3fa0;
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  box-shadow:
+    0 0 60px rgba(120, 60, 200, .35),
+    inset 0 0 30px rgba(100, 40, 180, .15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+/* ── Marquee ─────────────────────────────────────── */
+.marquee {
+  text-align: center;
+}
+
+.marquee h1 {
+  font-size: 1.9rem;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #ff6ec7, #ffe86c, #6cffb8, #6cc4ff, #ff6ec7);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+.subtitle {
+  font-size: .85rem;
+  color: #a080d0;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ── Token Display ───────────────────────────────── */
+.token-display {
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,.3);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid #5a30a0;
+}
+
+.token-icon { font-size: 1.5rem; }
+
+#tokens {
+  color: #ffe86c;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* ── Bet Controls ────────────────────────────────── */
+.bet-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.bet-btn {
+  width: 34px;
+  height: 34px;
+  border: 2px solid #7c50c0;
+  border-radius: 50%;
+  background: rgba(100, 50, 180, .25);
+  color: #d0b8ff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bet-btn:hover { background: rgba(130, 70, 220, .45); }
+
+#bet-amount { color: #ffe86c; }
+
+/* ── Reels ───────────────────────────────────────── */
+.reels-frame {
+  background: #0a0016;
+  border: 3px solid #5a30a0;
+  border-radius: 14px;
+  padding: 6px;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0,0,0,.8);
+}
+
+.reels-window {
+  display: flex;
+  gap: 6px;
+}
+
+.reel {
+  width: 108px;
+  height: 108px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0e0420;
+  position: relative;
+}
+
+.reel-strip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: top .6s cubic-bezier(.2, .8, .3, 1);
+}
+
+.reel-strip .symbol {
+  width: 108px;
+  height: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.payline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  background: rgba(255, 232, 108, .5);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ── Message ─────────────────────────────────────── */
+.message {
+  min-height: 44px;
+  text-align: center;
+  font-size: .95rem;
+  line-height: 1.4;
+  color: #c8b0e8;
+  padding: 0 8px;
+}
+
+.message.win {
+  color: #ffe86c;
+  font-weight: 700;
+  animation: pop .3s ease;
+}
+
+.message.lose { color: #a080b0; }
+.message.jackpot {
+  color: #ff6ec7;
+  font-weight: 700;
+  font-size: 1.15rem;
+  animation: pop .3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* ── Lever Button ────────────────────────────────── */
+.lever-btn {
+  width: 160px;
+  padding: 14px 0;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #8a40e0, #5a1ea0);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #3a1070, 0 8px 20px rgba(100, 40, 200, .4);
+  transition: transform .08s, box-shadow .08s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lever-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #3a1070, 0 4px 10px rgba(100, 40, 200, .3);
+}
+
+.lever-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.lever-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.lever-subtext {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: .7;
+}
+
+/* ── Paytable ────────────────────────────────────── */
+.paytable {
+  width: 100%;
+  background: rgba(0,0,0,.25);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #3a2060;
+}
+
+.paytable h2 {
+  text-align: center;
+  font-size: .8rem;
+  letter-spacing: 3px;
+  color: #8060b0;
+  margin-bottom: 8px;
+}
+
+.paytable-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+  font-size: .82rem;
+}
+
+.paytable-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+.paytable-row .symbols { opacity: .9; }
+.paytable-row .payout {
+  color: #ffe86c;
+  font-weight: 600;
+}
+
+/* ── Spinning state ──────────────────────────────── */
+.reel.spinning .reel-strip {
+  transition: none;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 460px) {
+  .machine { width: 98vw; padding: 20px 14px 18px; }
+  .reel { width: 88px; height: 88px; }
+  .reel-strip .symbol { width: 88px; height: 88px; font-size: 2.6rem; }
+  .marquee h1 { font-size: 1.5rem; }
+}

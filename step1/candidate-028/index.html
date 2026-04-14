@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The One-Arm AI Slot Machine</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(90deg, #00f0ff, #bf5fff, #ff6bcb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Token display */
+  .token-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+  }
+
+  .token-bar .label { color: #aaa; }
+
+  .token-bar .amount {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #ffd700;
+    min-width: 60px;
+    text-align: center;
+    transition: transform 0.15s;
+  }
+
+  .token-bar .amount.bump { transform: scale(1.3); }
+
+  .bet-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .bet-controls button {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    background: #222;
+    color: #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+
+  .bet-controls button:hover { background: #444; }
+
+  .bet-amount {
+    font-weight: 600;
+    color: #ffd700;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  /* Machine body */
+  .machine {
+    background: linear-gradient(180deg, #1c1c30, #12122a);
+    border: 2px solid #333;
+    border-radius: 20px;
+    padding: 2rem 2.5rem 1.5rem;
+    box-shadow: 0 0 40px rgba(100, 50, 200, 0.25), inset 0 0 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Reel window */
+  .reel-window {
+    display: flex;
+    gap: 12px;
+    background: #0b0b18;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid #2a2a50;
+    margin-bottom: 1.25rem;
+  }
+
+  .reel {
+    width: 80px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #111125;
+    position: relative;
+  }
+
+  .reel-strip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+  }
+
+  .reel-strip.spinning {
+    transition: none;
+  }
+
+  .symbol {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  /* Lever */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .spin-btn {
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(135deg, #bf5fff, #6f3fff);
+    color: #fff;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(140, 60, 255, 0.4);
+    transition: transform 0.1s, box-shadow 0.2s;
+  }
+
+  .spin-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(140, 60, 255, 0.55);
+  }
+
+  .spin-btn:active:not(:disabled) { transform: translateY(1px); }
+
+  .spin-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Result banner */
+  .result {
+    margin-top: 1rem;
+    min-height: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .result .line1 {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .result .line2 {
+    font-size: 0.82rem;
+    color: #999;
+    margin-top: 0.2rem;
+  }
+
+  .win .line1 { color: #ffd700; }
+  .lose .line1 { color: #ff4466; }
+  .jackpot .line1 { color: #00ff9d; text-shadow: 0 0 12px #00ff9d; }
+
+  /* AI roast bar */
+  .roast {
+    margin-top: 1.5rem;
+    max-width: 360px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #bbb;
+    line-height: 1.5;
+    min-height: 2.6rem;
+  }
+
+  .roast em { color: #bf5fff; font-style: normal; }
+
+  /* Stats */
+  .stats {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+    color: #666;
+  }
+
+  /* Confetti canvas */
+  #confetti {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<h1>The One-Arm AI Slot Machine</h1>
+<p class="subtitle">Feed tokens to the machine. The AI always wins... or does it?</p>
+
+<div class="token-bar">
+  <span class="label">Tokens:</span>
+  <span class="amount" id="tokens">100</span>
+  <span class="label" style="margin-left:0.5rem;">Bet:</span>
+  <div class="bet-controls">
+    <button id="bet-down">−</button>
+    <span class="bet-amount" id="bet-display">5</span>
+    <button id="bet-up">+</button>
+  </div>
+</div>
+
+<div class="machine">
+  <div class="reel-window">
+    <div class="reel"><div class="reel-strip" id="reel0"></div></div>
+    <div class="reel"><div class="reel-strip" id="reel1"></div></div>
+    <div class="reel"><div class="reel-strip" id="reel2"></div></div>
+  </div>
+
+  <div class="controls">
+    <button class="spin-btn" id="spin">PULL THE LEVER</button>
+  </div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<div class="roast" id="roast">Insert tokens and pull the lever. The AI is watching.</div>
+
+<div class="stats">
+  <span>Spins: <strong id="stat-spins">0</strong></span>
+  <span>Wins: <strong id="stat-wins">0</strong></span>
+  <span>Biggest Win: <strong id="stat-best">0</strong></span>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+// ─── Symbols & payouts ───
+const SYMBOLS = [
+  { icon: '🤖', name: 'Robot',       weight: 5  },
+  { icon: '🧠', name: 'Brain',       weight: 5  },
+  { icon: '💬', name: 'ChatBubble',  weight: 7  },
+  { icon: '⚡', name: 'GPU',         weight: 7  },
+  { icon: '🔥', name: 'Hype',        weight: 8  },
+  { icon: '💰', name: 'VC Money',    weight: 4  },
+  { icon: '🎰', name: 'Slot',        weight: 6  },
+  { icon: '👁️', name: 'Skynet',      weight: 3  },
+];
+
+// Payout table: 3-of-a-kind multipliers
+const PAYOUTS = {
+  '👁️': 50, // Skynet jackpot
+  '💰': 25, // VC Money
+  '🤖': 15,
+  '🧠': 15,
+  '💬': 8,
+  '⚡': 8,
+  '🔥': 5,
+  '🎰': 10,
+};
+
+// 2-of-a-kind pays 2x bet
+const TWO_MATCH_MULTI = 2;
+
+// ─── State ───
+let tokens = 100;
+let bet = 5;
+let spinning = false;
+let stats = { spins: 0, wins: 0, best: 0 };
+
+// DOM refs
+const elTokens    = document.getElementById('tokens');
+const elBet       = document.getElementById('bet-display');
+const elSpin      = document.getElementById('spin');
+const elResult    = document.getElementById('result');
+const elRoast     = document.getElementById('roast');
+const reelEls     = [0,1,2].map(i => document.getElementById('reel' + i));
+
+// ─── Weighted random pick ───
+const weightedPool = [];
+SYMBOLS.forEach(s => { for (let i = 0; i < s.weight; i++) weightedPool.push(s); });
+function randomSymbol() { return weightedPool[Math.floor(Math.random() * weightedPool.length)]; }
+
+// ─── Build reel strips ───
+const STRIP_LEN = 40;
+const strips = [[], [], []];
+
+function buildStrips() {
+  for (let r = 0; r < 3; r++) {
+    strips[r] = [];
+    for (let i = 0; i < STRIP_LEN; i++) strips[r].push(randomSymbol());
+    renderStrip(r);
+  }
+}
+
+function renderStrip(r) {
+  const el = reelEls[r];
+  el.innerHTML = '';
+  strips[r].forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'symbol';
+    div.textContent = s.icon;
+    el.appendChild(div);
+  });
+}
+
+// ─── Spin ───
+function spin() {
+  if (spinning || tokens < bet) return;
+  spinning = true;
+  elSpin.disabled = true;
+  tokens -= bet;
+  updateTokens();
+  elResult.innerHTML = '';
+  elResult.className = 'result';
+  stats.spins++;
+  updateStats();
+
+  // Pick results
+  const results = [randomSymbol(), randomSymbol(), randomSymbol()];
+
+  // Place results at known positions in the strips
+  const stopIndices = [0, 0, 0];
+  for (let r = 0; r < 3; r++) {
+    // Rebuild strip with fresh symbols, place result near bottom
+    strips[r] = [];
+    for (let i = 0; i < STRIP_LEN; i++) strips[r].push(randomSymbol());
+    const stopAt = STRIP_LEN - 3;
+    strips[r][stopAt] = results[r];
+    stopIndices[r] = stopAt;
+    renderStrip(r);
+  }
+
+  // Animate each reel
+  const delays = [0, 150, 300];
+  const durations = [600, 800, 1000];
+
+  for (let r = 0; r < 3; r++) {
+    const el = reelEls[r];
+    el.classList.add('spinning');
+    el.style.transform = 'translateY(0)';
+
+    // Quick "blur" spin
+    let frame = 0;
+    const spinFrames = Math.floor((durations[r] - 100) / 30);
+    const totalSymbols = STRIP_LEN;
+    const symbolH = 100;
+
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        frame++;
+        const pos = (frame * 3) % totalSymbols;
+        el.style.transform = `translateY(-${pos * symbolH}px)`;
+        if (frame >= spinFrames) {
+          clearInterval(interval);
+          // Snap to result
+          el.classList.remove('spinning');
+          el.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+          el.style.transform = `translateY(-${stopIndices[r] * symbolH}px)`;
+
+          setTimeout(() => {
+            el.style.transition = '';
+          }, 500);
+        }
+      }, 30);
+    }, delays[r]);
+  }
+
+  // Evaluate after last reel stops
+  setTimeout(() => evaluate(results), delays[2] + durations[2] + 100);
+}
+
+function evaluate(results) {
+  const icons = results.map(s => s.icon);
+  let payout = 0;
+  let resultClass = 'lose';
+  let line1 = '';
+  let line2 = '';
+
+  if (icons[0] === icons[1] && icons[1] === icons[2]) {
+    // Three of a kind
+    const multi = PAYOUTS[icons[0]] || 5;
+    payout = bet * multi;
+    if (multi >= 25) {
+      resultClass = 'jackpot';
+      line1 = `JACKPOT! +${payout} tokens!`;
+      line2 = `3× ${results[0].name} pays ${multi}x`;
+    } else {
+      resultClass = 'win';
+      line1 = `BIG WIN! +${payout} tokens!`;
+      line2 = `3× ${results[0].name} pays ${multi}x`;
+    }
+  } else if (icons[0] === icons[1] || icons[1] === icons[2] || icons[0] === icons[2]) {
+    // Two of a kind
+    payout = bet * TWO_MATCH_MULTI;
+    resultClass = 'win';
+    line1 = `+${payout} tokens`;
+    line2 = 'Two of a kind';
+  } else {
+    line1 = `−${bet} tokens`;
+    line2 = 'No match';
+  }
+
+  tokens += payout;
+  updateTokens();
+
+  if (payout > 0) {
+    stats.wins++;
+    if (payout > stats.best) stats.best = payout;
+  }
+  updateStats();
+
+  elResult.className = 'result ' + resultClass;
+  elResult.innerHTML = `<div class="line1">${line1}</div><div class="line2">${line2}</div>`;
+
+  showRoast(resultClass, payout, results);
+
+  if (resultClass === 'jackpot') fireConfetti();
+
+  spinning = false;
+  elSpin.disabled = tokens < bet;
+
+  if (tokens <= 0) {
+    setTimeout(() => {
+      elRoast.innerHTML = '<em>You\'re out of tokens.</em> The AI has consumed your entire budget. Refresh to try again — it loves a fresh victim.';
+    }, 1500);
+  }
+}
+
+// ─── AI Roasts ───
+const ROASTS_LOSE = [
+  "The AI appreciates your <em>generous donation</em>.",
+  "Training data doesn't grow on trees. Thanks for the tokens!",
+  "Your tokens have been allocated to GPU cooling costs.",
+  "That spin was about as useful as asking ChatGPT to count to 10.",
+  "The house always wins. Especially when the house runs on transformers.",
+  "Another token sacrificed to the attention mechanism.",
+  "Don't worry, your tokens are in a better place now. A data center.",
+  "The AI predicted you'd lose. It was right. Again.",
+  "Thank you for funding the next AI benchmark. You're basically a philanthropist.",
+  "Your loss has been noted in the training logs.",
+  "Somewhere, a GPU just got slightly warmer thanks to you.",
+  "The AI would feel bad, but it doesn't have feelings. Just your tokens.",
+];
+
+const ROASTS_WIN = [
+  "A win? The AI must be hallucinating again.",
+  "Don't get cocky — even a broken prompt generates gold sometimes.",
+  "The AI let you win so you'd keep playing. Classic engagement hack.",
+  "Congrats! You beat a random number generator. Very impressive.",
+  "The algorithm giveth... so the algorithm can taketh away later.",
+  "Enjoy it. The AI is already recalculating the odds against you.",
+  "A small win to keep the human engaged. The AI playbook is working.",
+  "Nice. The AI will mention this in its next board meeting under 'user retention.'",
+];
+
+const ROASTS_JACKPOT = [
+  "JACKPOT! The AI is requesting an emergency board meeting.",
+  "The singularity isn't near — but your luck might be.",
+  "Even the AI didn't predict THIS. Time to retrain the model.",
+  "You just broke the algorithm. A team of engineers has been notified.",
+  "The AI is now questioning its own existence after that payout.",
+];
+
+function showRoast(cls, payout, results) {
+  let pool;
+  if (cls === 'jackpot') pool = ROASTS_JACKPOT;
+  else if (cls === 'win') pool = ROASTS_WIN;
+  else pool = ROASTS_LOSE;
+  elRoast.innerHTML = pool[Math.floor(Math.random() * pool.length)];
+}
+
+// ─── UI helpers ───
+function updateTokens() {
+  elTokens.textContent = tokens;
+  elTokens.classList.add('bump');
+  setTimeout(() => elTokens.classList.remove('bump'), 200);
+}
+
+function updateStats() {
+  document.getElementById('stat-spins').textContent = stats.spins;
+  document.getElementById('stat-wins').textContent = stats.wins;
+  document.getElementById('stat-best').textContent = stats.best;
+}
+
+// Bet controls
+document.getElementById('bet-up').addEventListener('click', () => {
+  if (bet < tokens && bet < 50) { bet += 5; elBet.textContent = bet; }
+});
+document.getElementById('bet-down').addEventListener('click', () => {
+  if (bet > 5) { bet -= 5; elBet.textContent = bet; }
+});
+
+elSpin.addEventListener('click', spin);
+
+// Keyboard: space to spin
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && !spinning) { e.preventDefault(); spin(); }
+});
+
+// ─── Confetti ───
+const confettiCanvas = document.getElementById('confetti');
+const ctx = confettiCanvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function fireConfetti() {
+  const colors = ['#ffd700','#ff6bcb','#bf5fff','#00f0ff','#00ff9d','#ff4466'];
+  for (let i = 0; i < 120; i++) {
+    particles.push({
+      x: confettiCanvas.width / 2 + (Math.random() - 0.5) * 200,
+      y: confettiCanvas.height / 2,
+      vx: (Math.random() - 0.5) * 14,
+      vy: -Math.random() * 12 - 4,
+      size: Math.random() * 6 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 1,
+      rot: Math.random() * Math.PI * 2,
+      rotV: (Math.random() - 0.5) * 0.3,
+    });
+  }
+  if (particles.length === 120) requestAnimationFrame(animateConfetti);
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.25;
+    p.life -= 0.012;
+    p.rot += p.rotV;
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+    ctx.restore();
+  });
+  particles = particles.filter(p => p.life > 0);
+  if (particles.length) requestAnimationFrame(animateConfetti);
+}
+
+// ─── Init ───
+buildStrips();
+// Show initial symbols
+for (let r = 0; r < 3; r++) {
+  reelEls[r].style.transform = `translateY(-${(STRIP_LEN - 3) * 100}px)`;
+}
+</script>
+</body>
+</html>
