@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cabinet">
+    <header class="marquee">
+      <h1>THE ONE-ARM AI</h1>
+      <p class="subtitle">~ Where Every Spin Costs Tokens ~</p>
+    </header>
+
+    <div class="token-bar">
+      <div class="token-display">
+        <span class="token-icon">T</span>
+        <span id="token-count">1000</span>
+        <span class="token-label">tokens</span>
+      </div>
+      <div class="cost-display">
+        <span>Spin cost: <strong id="spin-cost">50</strong> tokens</span>
+      </div>
+    </div>
+
+    <div class="slot-window">
+      <div class="reel-container">
+        <div class="reel" id="reel-0">
+          <div class="reel-strip"></div>
+        </div>
+        <div class="reel" id="reel-1">
+          <div class="reel-strip"></div>
+        </div>
+        <div class="reel" id="reel-2">
+          <div class="reel-strip"></div>
+        </div>
+      </div>
+      <div class="payline"></div>
+    </div>
+
+    <div id="message-box" class="message-box">
+      <p id="message-text">Insert tokens to play. (Pull the lever!)</p>
+    </div>
+
+    <div class="controls">
+      <button id="lever" class="lever-btn" aria-label="Pull the lever to spin">
+        <div class="lever-knob"></div>
+        <div class="lever-shaft"></div>
+        <span class="lever-label">PULL</span>
+      </button>
+    </div>
+
+    <div class="paytable">
+      <h2>Paytable</h2>
+      <div class="paytable-grid" id="paytable-grid"></div>
+    </div>
+
+    <footer class="fine-print">
+      <p>* No actual AI was harmed. Tokens are imaginary, just like AGI timelines.</p>
+      <p>* The house always wins. The house is also an AI. You see the problem.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
