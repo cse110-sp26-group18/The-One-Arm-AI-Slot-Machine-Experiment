@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HalluciBot 9000 — The AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine-frame">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-spark">✦</span>
+        <h1>HalluciBot 9000</h1>
+        <span class="logo-spark">✦</span>
+      </div>
+      <p class="tagline">The world's first slot machine <em>powered by Artificial Intelligence&trade;</em></p>
+      <p class="disclaimer">Results may include fabricated citations, confident nonsense, and the occasional existential crisis.</p>
+    </header>
+
+    <section class="hud">
+      <div class="hud-card">
+        <div class="hud-label">Token Balance</div>
+        <div class="hud-value" id="balance">1000</div>
+        <div class="hud-sub">spent on compute</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Bet Per Spin</div>
+        <div class="bet-controls">
+          <button class="bet-btn" id="bet-down" aria-label="Decrease bet">−</button>
+          <div class="hud-value small" id="bet">50</div>
+          <button class="bet-btn" id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+        <div class="hud-sub">per inference</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Last Payout</div>
+        <div class="hud-value" id="last-payout">0</div>
+        <div class="hud-sub">accuracy not guaranteed</div>
+      </div>
+    </section>
+
+    <section class="reels" id="reels" aria-label="Slot reels">
+      <div class="reel" data-reel="0"><div class="reel-strip">🤖</div></div>
+      <div class="reel" data-reel="1"><div class="reel-strip">🧠</div></div>
+      <div class="reel" data-reel="2"><div class="reel-strip">💸</div></div>
+    </section>
+
+    <div class="payline"></div>
+
+    <section class="controls">
+      <button id="spin-btn" class="spin-btn">
+        <span class="spin-label">PROMPT THE MACHINE</span>
+        <span class="spin-cost">Cost: <span id="spin-cost">50</span> tokens</span>
+      </button>
+      <button id="reset-btn" class="reset-btn" title="Reset balance">Beg for more compute</button>
+    </section>
+
+    <section class="ticker" aria-live="polite">
+      <div class="ticker-label">AI says:</div>
+      <div class="ticker-text" id="ticker-text">Ready to confidently generate random results.</div>
+    </section>
+
+    <section class="paytable">
+      <h2>Payout Matrix (a.k.a. the Model Card)</h2>
+      <table>
+        <thead>
+          <tr><th>Combo</th><th>Meaning</th><th>Payout</th></tr>
+        </thead>
+        <tbody id="paytable-body"></tbody>
+      </table>
+      <p class="fine-print">
+        * By spinning, you agree to share your data, your dreams, and your firstborn startup equity.
+        ** HalluciBot 9000 is not responsible for hallucinated winnings.
+      </p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
