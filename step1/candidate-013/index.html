@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="machine">
+    <header class="machine-header">
+      <h1>THE ONE-ARM AI</h1>
+      <p class="subtitle">~ Where Every Spin Costs Tokens ~</p>
+    </header>
+
+    <div class="token-display">
+      <span class="token-icon">🪙</span>
+      <span id="token-count">1000</span>
+      <span class="token-label">tokens</span>
+    </div>
+
+    <div class="reels-container">
+      <div class="reel-window">
+        <div class="reel" id="reel-0">
+          <div class="reel-strip"></div>
+        </div>
+      </div>
+      <div class="reel-window">
+        <div class="reel" id="reel-1">
+          <div class="reel-strip"></div>
+        </div>
+      </div>
+      <div class="reel-window">
+        <div class="reel" id="reel-2">
+          <div class="reel-strip"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="controls">
+      <div class="bet-controls">
+        <button id="bet-down" class="bet-btn" aria-label="Decrease bet">−</button>
+        <div class="bet-display">
+          <span class="bet-label">BET</span>
+          <span id="bet-amount">50</span>
+          <span class="token-label">tokens</span>
+        </div>
+        <button id="bet-up" class="bet-btn" aria-label="Increase bet">+</button>
+      </div>
+      <button id="spin-btn" class="spin-btn">
+        <span class="spin-text">SPIN</span>
+        <span class="spin-subtext">burn some tokens</span>
+      </button>
+    </div>
+
+    <div class="paytable">
+      <h2>PAYTABLE</h2>
+      <div class="paytable-grid">
+        <div class="pay-row jackpot">
+          <span>🤖🤖🤖</span><span>50x — AGI ACHIEVED</span>
+        </div>
+        <div class="pay-row">
+          <span>🧠🧠🧠</span><span>25x — Neural Jackpot</span>
+        </div>
+        <div class="pay-row">
+          <span>💰💰💰</span><span>15x — VC Funding Round</span>
+        </div>
+        <div class="pay-row">
+          <span>🔥🔥🔥</span><span>10x — Model's Fire</span>
+        </div>
+        <div class="pay-row">
+          <span>📊📊📊</span><span>8x — Benchmark Hype</span>
+        </div>
+        <div class="pay-row">
+          <span>☁️☁️☁️</span><span>5x — Cloud Credits</span>
+        </div>
+        <div class="pay-row">
+          <span>Any 2 match</span><span>2x</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="history" class="history">
+      <h2>PROMPT LOG</h2>
+      <ul id="history-list"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
