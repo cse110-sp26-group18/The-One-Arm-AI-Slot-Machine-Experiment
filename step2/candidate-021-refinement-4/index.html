@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI — Stochastic Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="machine">
+    <header class="marquee">
+      <h1>THE ONE-ARM AI</h1>
+      <p class="tagline">"A stochastic parrot with a gambling problem"</p>
+    </header>
+
+    <section class="hud">
+      <div class="hud-item">
+        <span class="hud-label">Tokens</span>
+        <span id="tokenCount" class="hud-value">100</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Cost / Spin</span>
+        <span class="hud-value">5</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Context Window</span>
+        <span id="contextWindow" class="hud-value">∞</span>
+      </div>
+    </section>
+
+    <section class="reels" id="reels">
+      <div class="reel"><div class="strip" data-reel="0"></div></div>
+      <div class="reel"><div class="strip" data-reel="1"></div></div>
+      <div class="reel"><div class="strip" data-reel="2"></div></div>
+    </section>
+
+    <section class="message" id="message">
+      Insert tokens. Pray to the loss function.
+    </section>
+
+    <section class="controls">
+      <button id="spinBtn" class="lever">
+        <span class="lever-top"></span>
+        <span class="lever-label">PULL</span>
+      </button>
+      <button id="resetBtn" class="secondary">Beg for more tokens</button>
+    </section>
+
+    <section class="paytable">
+      <h2>Pay Table <small>(in "tokens", whatever those are)</small></h2>
+      <ul id="paytableList"></ul>
+    </section>
+
+    <section class="log">
+      <h2>Incident Report</h2>
+      <ol id="logList"></ol>
+    </section>
+
+    <footer class="fineprint">
+      <p>Not financial advice. Not intelligence. Not even artificial, really.
+      Your GPU is crying. House edge: yes.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+For the next stage add the ability to track the different spins we have had, make sure that the user has the ability to add more tokens to their total tokens, add a more aesthetic background, add a more slot machine style with a slot hand on the side and create a more humorous text and phrase.
