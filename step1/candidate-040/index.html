@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HalluciSlots — The AI Token Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>HalluciSlots&trade;</h1>
+      <p class="tagline">"Now with 70% more confidently wrong answers!"</p>
+    </header>
+
+    <div class="wallet">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span id="tokens" class="value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">Spent</span>
+        <span id="spent" class="value">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Context Window</span>
+        <span id="context" class="value">8K</span>
+      </div>
+    </div>
+
+    <div class="reels-container">
+      <div class="reel" id="reel-0"><div class="strip"></div></div>
+      <div class="reel" id="reel-1"><div class="strip"></div></div>
+      <div class="reel" id="reel-2"><div class="strip"></div></div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="controls">
+      <div class="bet">
+        <button id="bet-down" aria-label="Decrease bet">−</button>
+        <div class="bet-display">
+          <span class="label">Bet</span>
+          <span id="bet" class="value">10</span>
+        </div>
+        <button id="bet-up" aria-label="Increase bet">+</button>
+      </div>
+      <button id="spin" class="lever">PROMPT&nbsp;&amp;&nbsp;PRAY</button>
+    </div>
+
+    <div id="message" class="message">Press the lever. The model will decide your fate.</div>
+
+    <footer class="fineprint">
+      <p>Disclaimer: Outputs may be hallucinated. Past performance is not indicative of future gradients.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
