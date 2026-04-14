@@ -7,10 +7,22 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <div class="particle-field" id="particleField"></div>
+
   <main class="machine">
+    <div class="machine-top-lights">
+      <span class="bulb b1"></span><span class="bulb b2"></span><span class="bulb b3"></span>
+      <span class="bulb b4"></span><span class="bulb b5"></span><span class="bulb b6"></span>
+      <span class="bulb b7"></span><span class="bulb b8"></span><span class="bulb b9"></span>
+      <span class="bulb b10"></span><span class="bulb b11"></span><span class="bulb b12"></span>
+    </div>
+
     <header class="marquee">
       <h1>THE ONE-ARM AI</h1>
-      <p class="tagline">"A stochastic parrot with a gambling problem"</p>
+      <p class="tagline">"A stochastic parrot with a gambling problem and a venture-backed ego"</p>
     </header>
 
     <section class="hud">
@@ -24,41 +36,110 @@
       </div>
       <div class="hud-item">
         <span class="hud-label">Context Window</span>
-        <span id="contextWindow" class="hud-value">∞</span>
+        <span id="contextWindow" class="hud-value">&#8734;</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Total Spins</span>
+        <span id="totalSpins" class="hud-value">0</span>
       </div>
     </section>
 
-    <section class="reels" id="reels">
-      <div class="reel"><div class="strip" data-reel="0"></div></div>
-      <div class="reel"><div class="strip" data-reel="1"></div></div>
-      <div class="reel"><div class="strip" data-reel="2"></div></div>
-    </section>
+    <div class="slot-body">
+      <section class="reels" id="reels">
+        <div class="reel"><div class="strip" data-reel="0"></div></div>
+        <div class="reel"><div class="strip" data-reel="1"></div></div>
+        <div class="reel"><div class="strip" data-reel="2"></div></div>
+      </section>
+
+      <div class="lever-assembly" id="leverAssembly">
+        <div class="lever-track">
+          <div class="lever-knob" id="leverKnob">
+            <div class="knob-sphere"></div>
+          </div>
+          <div class="lever-rod"></div>
+          <div class="lever-base-plate"></div>
+        </div>
+      </div>
+    </div>
 
     <section class="message" id="message">
-      Insert tokens. Pray to the loss function.
+      Insert tokens. Sacrifice your dignity. Pray to the loss function.
     </section>
 
     <section class="controls">
-      <button id="spinBtn" class="lever">
-        <span class="lever-top"></span>
-        <span class="lever-label">PULL</span>
+      <button id="spinBtn" class="pull-btn">
+        <span class="pull-label">PULL</span>
       </button>
-      <button id="resetBtn" class="secondary">Beg for more tokens</button>
+      <button id="addTokensBtn" class="token-btn">+ Buy Tokens</button>
+      <button id="resetBtn" class="secondary">Beg VCs for Bailout</button>
+    </section>
+
+    <section class="token-shop" id="tokenShop" style="display:none;">
+      <h2>Token Dispensary <small>(totally not a scam)</small></h2>
+      <div class="shop-options">
+        <button class="shop-item" data-amount="25">
+          <span class="shop-amount">25</span>
+          <span class="shop-label">Intern's Lunch Money</span>
+        </button>
+        <button class="shop-item" data-amount="50">
+          <span class="shop-amount">50</span>
+          <span class="shop-label">Seed Round</span>
+        </button>
+        <button class="shop-item" data-amount="100">
+          <span class="shop-amount">100</span>
+          <span class="shop-label">Series A</span>
+        </button>
+        <button class="shop-item" data-amount="500">
+          <span class="shop-amount">500</span>
+          <span class="shop-label">SoftBank Blank Check</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="stats-panel">
+      <h2>Spin Analytics Dashboard <small>(the board demands metrics)</small></h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Win Rate</span>
+          <span id="winRate" class="stat-value">0%</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Biggest Win</span>
+          <span id="biggestWin" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Tokens Won</span>
+          <span id="tokensWon" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Tokens Lost</span>
+          <span id="tokensLost" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Net P&L</span>
+          <span id="netPnL" class="stat-value">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Jackpots</span>
+          <span id="jackpotCount" class="stat-value">0</span>
+        </div>
+      </div>
     </section>
 
     <section class="paytable">
-      <h2>Pay Table <small>(in "tokens", whatever those are)</small></h2>
+      <h2>Pay Table <small>(in "tokens" &mdash; a currency we definitely didn't hallucinate)</small></h2>
       <ul id="paytableList"></ul>
     </section>
 
     <section class="log">
-      <h2>Incident Report</h2>
+      <h2>Incident Report <small>(compliance wants receipts)</small></h2>
       <ol id="logList"></ol>
     </section>
 
     <footer class="fineprint">
       <p>Not financial advice. Not intelligence. Not even artificial, really.
-      Your GPU is crying. House edge: yes.</p>
+      Your GPU is crying. House edge: yes. Terms of service: vibes only.
+      By spinning you agree that AGI is "just around the corner."</p>
     </footer>
   </main>
 
