@@ -28,8 +28,9 @@ styles.css
 
 <!-- 1-3 bullets. Does the slot machine actually look/feel like one?
      Does it spin? Is the "AI tokens" joke present? Any obvious UX issues? -->
-     - the app does not work
-     - the UI is very basic and neither buttons work
+     - the app works
+     - the UI is very basic and dull
+     - no spin
 
 -
 
@@ -37,8 +38,7 @@ styles.css
 
 <!-- 1-3 bullets. Structure, separation of HTML/CSS/JS, dead code,
      accessibility, console errors, obvious bugs. -->
-     - it looks unstructured
-     - not great considering it doesn't work
+     - it looks a bit messy
 
 -
 
@@ -46,6 +46,6 @@ styles.css
 
 <!-- Anything surprising vs. the other runs you've seen: unusual features,
      bizarre choices, refusal, truncated output, hallucinated APIs, etc. -->
-     - does not work
+     - very few lines of code
 
 -
