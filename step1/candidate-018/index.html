@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI Bandit</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="header">
+      <h1>THE ONE-ARM AI BANDIT</h1>
+      <p class="tagline">"Gamble your tokens. Hallucinate your profits."</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="label">TOKEN BALANCE</span>
+        <span class="value" id="balance">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">LAST PAYOUT</span>
+        <span class="value" id="lastWin">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">CONTEXT WINDOW</span>
+        <span class="value" id="spins">0 / ∞</span>
+      </div>
+    </section>
+
+    <section class="reels" id="reels">
+      <div class="reel"><div class="strip" data-reel="0"></div></div>
+      <div class="reel"><div class="strip" data-reel="1"></div></div>
+      <div class="reel"><div class="strip" data-reel="2"></div></div>
+    </section>
+
+    <section class="bet-row">
+      <label for="bet">BET:</label>
+      <button class="bet-btn" id="betDown">−</button>
+      <span id="bet">10</span>
+      <button class="bet-btn" id="betUp">+</button>
+      <span class="tokens-suffix">tokens</span>
+    </section>
+
+    <section class="controls">
+      <button id="spinBtn" class="spin-btn">
+        <span class="spin-label">PULL THE LEVER</span>
+        <span class="spin-sublabel">(prompt the oracle)</span>
+      </button>
+      <button id="freeTokens" class="free-btn">Beg for free tokens</button>
+    </section>
+
+    <section class="readout">
+      <div class="screen" id="screen">Welcome, human. Place your bet. The model is ready to hallucinate.</div>
+    </section>
+
+    <section class="paytable">
+      <h2>PAYTABLE (totally not rigged)</h2>
+      <ul>
+        <li>🧠🧠🧠 <em>AGI Achieved</em> — ×50</li>
+        <li>💸💸💸 <em>Burning VC Cash</em> — ×20</li>
+        <li>🤖🤖🤖 <em>Army of Bots</em> — ×15</li>
+        <li>📈📈📈 <em>Hockey Stick Growth</em> — ×10</li>
+        <li>🔮🔮🔮 <em>Vibes-Based Forecast</em> — ×8</li>
+        <li>🍌🍌🍌 <em>Banana for Scale</em> — ×5</li>
+        <li>Any pair — ×2</li>
+        <li>👻 Hallucination — lose bet + get gaslit</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <small>No refunds. No alignment. No guarantees. Side effects include: sycophancy, confident wrongness, and citing papers that do not exist.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
