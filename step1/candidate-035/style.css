@@ -1,0 +1,433 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0a12;
+  color: #d4d4d4;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px 12px;
+  overflow-x: hidden;
+}
+
+/* ── Cabinet ─────────────────────────────────────────────── */
+.cabinet {
+  background: linear-gradient(180deg, #12121e 0%, #0e0e1a 100%);
+  border: 2px solid #8b5cf6;
+  border-radius: 20px;
+  padding: 28px 24px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow:
+    0 0 60px rgba(139, 92, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ── Marquee ─────────────────────────────────────────────── */
+.marquee {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.marquee h1 {
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  color: #a78bfa;
+  text-shadow:
+    0 0 20px rgba(139, 92, 246, 0.6),
+    0 0 40px rgba(139, 92, 246, 0.3);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.tagline {
+  color: #6b6b8d;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.3); }
+  50%      { text-shadow: 0 0 30px rgba(139, 92, 246, 0.9), 0 0 60px rgba(139, 92, 246, 0.5); }
+}
+
+/* ── Dashboard Stats ─────────────────────────────────────── */
+.dashboard {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  flex: 1;
+  background: #0a0a14;
+  border: 1px solid #2a2a40;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: #6b6b8d;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fbbf24;
+}
+
+/* ── Reels ───────────────────────────────────────────────── */
+.reels-window {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  background: #08080f;
+  border: 2px solid #2a2a40;
+  border-radius: 12px;
+  padding: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+
+.reels-window.jackpot-flash {
+  box-shadow: 0 0 40px rgba(251, 191, 36, 0.8), inset 0 0 30px rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+  animation: jackpot-border 0.2s linear 6;
+}
+
+.reels-window.win-flash {
+  box-shadow: 0 0 30px rgba(52, 211, 153, 0.6);
+  border-color: #34d399;
+}
+
+@keyframes jackpot-border {
+  0%, 100% { border-color: #fbbf24; }
+  50%      { border-color: #f59e0b; }
+}
+
+.reel-strip {
+  width: 100px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  background: #0d0d18;
+  border: 1px solid #1e1e30;
+}
+
+.reel-cell {
+  width: 100px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  user-select: none;
+}
+
+/* ── Payline Indicator ───────────────────────────────────── */
+.payline-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.payline-text {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: #8b5cf6;
+}
+
+.arrow-left,
+.arrow-right {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #8b5cf6);
+}
+
+.arrow-right {
+  background: linear-gradient(90deg, #8b5cf6, transparent);
+}
+
+/* ── Message Box ─────────────────────────────────────────── */
+.message-box {
+  background: #0d0d18;
+  border: 1px solid #2a2a40;
+  border-left: 3px solid #8b5cf6;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #9d9dbb;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.message-box.spinning {
+  border-left-color: #8b5cf6;
+  color: #a78bfa;
+}
+
+.message-box.win {
+  border-left-color: #34d399;
+  color: #34d399;
+}
+
+.message-box.jackpot {
+  border-left-color: #fbbf24;
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.message-box.lose {
+  border-left-color: #f87171;
+  color: #f87171;
+}
+
+/* ── Controls ────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.bet-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bet-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #3a3a50;
+  background: #14141f;
+  color: #a78bfa;
+  font-size: 1.2rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bet-btn:hover {
+  background: #1e1e2f;
+  border-color: #8b5cf6;
+}
+
+.bet-display {
+  background: #0a0a14;
+  border: 1px solid #2a2a40;
+  border-radius: 8px;
+  padding: 6px 16px;
+  text-align: center;
+  min-width: 70px;
+}
+
+.bet-label {
+  display: block;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: #6b6b8d;
+}
+
+#bet-value {
+  font-size: 1.1rem;
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.lever-btn {
+  background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+}
+
+.lever-btn:hover {
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.6);
+}
+
+.lever-btn:active,
+.lever-btn.pulling {
+  transform: scale(0.94);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+.lever-btn:disabled {
+  background: #2a2a40;
+  color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.lever-text {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+
+.lever-subtext {
+  display: block;
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+/* ── Paytable ────────────────────────────────────────────── */
+.paytable {
+  border-top: 1px solid #1e1e30;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.paytable h2 {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #6b6b8d;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.paytable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paytable-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+}
+
+.paytable-row:nth-child(odd) {
+  background: rgba(139, 92, 246, 0.04);
+}
+
+.pt-symbol {
+  font-size: 1rem;
+  width: 80px;
+}
+
+.pt-name {
+  flex: 1;
+  color: #9d9dbb;
+  padding-left: 8px;
+}
+
+.pt-payout {
+  color: #fbbf24;
+  font-weight: bold;
+  min-width: 36px;
+  text-align: right;
+}
+
+.paytable-note {
+  text-align: center;
+  font-size: 0.65rem;
+  color: #555;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ── News Ticker ─────────────────────────────────────────── */
+.ticker {
+  background: #08080f;
+  border: 1px solid #1e1e30;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-content {
+  white-space: nowrap;
+  font-size: 0.65rem;
+  color: #4a4a6a;
+  animation: scroll-ticker 60s linear infinite;
+}
+
+@keyframes scroll-ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .cabinet {
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+
+  .marquee h1 {
+    font-size: 1.15rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .reel-strip {
+    width: 80px;
+    height: 70px;
+  }
+
+  .reel-cell {
+    width: 80px;
+    height: 70px;
+    font-size: 2.2rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .lever-btn {
+    width: 100%;
+    padding: 14px;
+  }
+}

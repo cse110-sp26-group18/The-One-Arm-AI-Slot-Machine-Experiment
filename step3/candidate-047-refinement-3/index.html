@@ -7,21 +7,20 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Animated background particles -->
+  <!-- Subtle animated background -->
   <canvas id="bg-canvas"></canvas>
 
   <div class="machine-wrapper">
-    <!-- ── Main Slot Machine ─────────────────────────── -->
     <div class="slot-machine">
+
+      <!-- Header -->
       <header class="machine-header">
         <div class="marquee-lights" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
         </div>
         <h1>The One-Arm AI</h1>
         <p class="subtitle">~ where your tokens go to die ~</p>
-        <p class="subtitle-small" id="rotating-tagline">Now with 100% more hallucinations!</p>
       </header>
 
       <!-- Token bar -->
@@ -29,34 +28,27 @@
         <div class="token-balance">
           <span class="token-icon">🪙</span>
           <span id="token-count">100</span>
-          <span class="token-label">AI Tokens</span>
+          <span class="token-label">Tokens</span>
         </div>
-        <button id="add-tokens-btn" class="btn btn-add-tokens" aria-label="Add more tokens">
-          + Buy Tokens
-        </button>
+        <button id="add-tokens-btn" class="btn btn-add-tokens" aria-label="Add more tokens">+ Add</button>
         <div class="token-cost">
-          Cost per spin: <strong><span id="bet-display">10</span> tokens</strong>
+          Bet: <strong><span id="bet-display">10</span></strong>
         </div>
       </div>
 
-      <!-- Reels area with lever -->
+      <!-- Floating token animation container -->
+      <div class="token-float-container" id="token-float-container"></div>
+
+      <!-- Reels + Lever -->
       <div class="reels-and-lever">
         <div class="reels-frame">
           <div class="reels-window">
-            <div class="reel" id="reel-0">
-              <div class="reel-strip"></div>
-            </div>
-            <div class="reel" id="reel-1">
-              <div class="reel-strip"></div>
-            </div>
-            <div class="reel" id="reel-2">
-              <div class="reel-strip"></div>
-            </div>
+            <div class="reel" id="reel-0"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-1"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-2"><div class="reel-strip"></div></div>
           </div>
           <div class="payline"></div>
         </div>
-
-        <!-- Side lever -->
         <div class="lever-assembly" id="lever-assembly">
           <div class="lever-track"></div>
           <div class="lever-arm" id="lever-arm">
@@ -68,104 +60,73 @@
 
       <!-- Message -->
       <div class="message-area">
-        <p id="message">Insert tokens and pull the lever, you brave fool...</p>
+        <p id="message">Pull the lever, brave fool...</p>
       </div>
 
       <!-- Controls -->
       <div class="controls">
         <div class="bet-controls">
           <button id="bet-down" class="btn btn-small" aria-label="Decrease bet">-</button>
-          <span class="bet-label">BET: <span id="bet-amount">10</span></span>
+          <span class="bet-label"><span id="bet-amount">10</span></span>
           <button id="bet-up" class="btn btn-small" aria-label="Increase bet">+</button>
         </div>
-        <button id="spin-btn" class="btn btn-spin">
-          <span class="lever-icon">🎰</span> PULL LEVER
-        </button>
+        <button id="spin-btn" class="btn btn-spin">SPIN</button>
       </div>
 
-      <!-- Stats bar -->
+      <!-- Stats -->
       <div class="stats-bar">
         <div class="stat">
-          <span class="stat-label">Spins</span>
           <span class="stat-value" id="stat-spins">0</span>
+          <span class="stat-label">Spins</span>
         </div>
         <div class="stat">
-          <span class="stat-label">Wins</span>
           <span class="stat-value stat-win" id="stat-wins">0</span>
+          <span class="stat-label">Wins</span>
         </div>
         <div class="stat">
-          <span class="stat-label">Losses</span>
           <span class="stat-value stat-lose" id="stat-losses">0</span>
+          <span class="stat-label">Losses</span>
         </div>
         <div class="stat">
-          <span class="stat-label">Net P/L</span>
+          <span class="stat-value" id="stat-rate">0%</span>
+          <span class="stat-label">Win Rate</span>
+        </div>
+        <div class="stat">
           <span class="stat-value" id="stat-net">0</span>
+          <span class="stat-label">Net</span>
         </div>
       </div>
 
       <!-- Spin History -->
       <div class="history-panel">
         <button class="history-toggle" id="history-toggle">
-          <span>Spin History</span>
+          <span>History</span>
           <span class="toggle-arrow" id="toggle-arrow">&#9660;</span>
         </button>
         <div class="history-body" id="history-body">
           <div class="history-list" id="history-list">
-            <p class="history-empty">No spins yet. Are you afraid?</p>
+            <p class="history-empty">No spins yet.</p>
           </div>
         </div>
       </div>
 
-      <!-- Paytable -->
+      <!-- Compact Paytable -->
       <div class="paytable">
-        <h2>Payout Table (a.k.a. "The Lies We Tell You")</h2>
+        <h2>Payouts</h2>
         <div class="paytable-grid">
-          <div class="pay-row jackpot">
-            <span class="pay-symbols">🤖🤖🤖</span>
-            <span class="pay-name">AGI Achieved</span>
-            <span class="pay-mult">x50</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">🧠🧠🧠</span>
-            <span class="pay-name">Neural Overload</span>
-            <span class="pay-mult">x25</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">💎💎💎</span>
-            <span class="pay-name">Series B Funding</span>
-            <span class="pay-mult">x20</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">🔥🔥🔥</span>
-            <span class="pay-name">GPU Meltdown</span>
-            <span class="pay-mult">x15</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">☁️☁️☁️</span>
-            <span class="pay-name">Cloud Compute Bill</span>
-            <span class="pay-mult">x10</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">⚡⚡⚡</span>
-            <span class="pay-name">Prompt Injection</span>
-            <span class="pay-mult">x10</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">🐛🐛🐛</span>
-            <span class="pay-name">"It's a Feature"</span>
-            <span class="pay-mult">x5</span>
-          </div>
-          <div class="pay-row">
-            <span class="pay-symbols">Any 2 match</span>
-            <span class="pay-name">Partial Hallucination</span>
-            <span class="pay-mult">x2</span>
-          </div>
+          <div class="pay-row jackpot"><span class="pay-symbols">🤖🤖🤖</span><span class="pay-mult">x50</span></div>
+          <div class="pay-row"><span class="pay-symbols">🧠🧠🧠</span><span class="pay-mult">x25</span></div>
+          <div class="pay-row"><span class="pay-symbols">💎💎💎</span><span class="pay-mult">x20</span></div>
+          <div class="pay-row"><span class="pay-symbols">🔥🔥🔥</span><span class="pay-mult">x15</span></div>
+          <div class="pay-row"><span class="pay-symbols">☁️☁️☁️</span><span class="pay-mult">x10</span></div>
+          <div class="pay-row"><span class="pay-symbols">⚡⚡⚡</span><span class="pay-mult">x10</span></div>
+          <div class="pay-row"><span class="pay-symbols">🐛🐛🐛</span><span class="pay-mult">x5</span></div>
+          <div class="pay-row"><span class="pay-symbols">2 match</span><span class="pay-mult">x2</span></div>
         </div>
       </div>
 
       <footer class="machine-footer">
-        <p>Disclaimer: No actual AI was harmed. Your tokens, however, are gone forever.</p>
-        <p>Probability of winning: about the same as AI taking your job. So... high. Wait.</p>
+        <p>No AI was harmed. Your tokens, however, are gone forever.</p>
       </footer>
     </div>
   </div>
@@ -174,36 +135,18 @@
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
       <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
-      <h2>Buy More AI Tokens</h2>
-      <p class="modal-subtitle">Because you clearly haven't learned your lesson.</p>
-      <div class="token-packages">
-        <button class="pkg-btn" data-amount="50">
-          <span class="pkg-amount">50</span>
-          <span class="pkg-icon">🪙</span>
-          <span class="pkg-name">"The Intern"</span>
-          <span class="pkg-desc">Enough to lose 5 times!</span>
-        </button>
-        <button class="pkg-btn featured" data-amount="200">
-          <span class="pkg-badge">POPULAR</span>
-          <span class="pkg-amount">200</span>
-          <span class="pkg-icon">🪙</span>
-          <span class="pkg-name">"The Startup Founder"</span>
-          <span class="pkg-desc">Burn rate: irresponsible</span>
-        </button>
-        <button class="pkg-btn" data-amount="500">
-          <span class="pkg-amount">500</span>
-          <span class="pkg-icon">🪙</span>
-          <span class="pkg-name">"The VC Money"</span>
-          <span class="pkg-desc">Other people's tokens!</span>
-        </button>
-        <button class="pkg-btn legendary" data-amount="1000">
-          <span class="pkg-amount">1000</span>
-          <span class="pkg-icon">🪙</span>
-          <span class="pkg-name">"The OpenAI Budget"</span>
-          <span class="pkg-desc">Unlimited copium included</span>
-        </button>
+      <h2>🪙 Add Tokens</h2>
+      <div class="custom-input-group">
+        <input type="number" id="custom-token-input" class="token-input" min="1" max="99999" placeholder="Enter amount..." />
+        <button id="custom-add-btn" class="btn btn-confirm-add">Add</button>
       </div>
-      <p class="modal-fine-print">* Not real money. Your dignity, however, is non-refundable.</p>
+      <div class="quick-amounts">
+        <button class="quick-btn" data-amount="50">50</button>
+        <button class="quick-btn" data-amount="100">100</button>
+        <button class="quick-btn" data-amount="250">250</button>
+        <button class="quick-btn" data-amount="500">500</button>
+      </div>
+      <p class="modal-fine-print">* Not real money. Your dignity is non-refundable.</p>
     </div>
   </div>
 

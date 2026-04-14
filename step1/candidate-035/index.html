@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Hallucination Station</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cabinet">
+    <div class="marquee">
+      <h1>THE HALLUCINATION STATION</h1>
+      <p class="tagline">Where tokens go in and confidence comes out</p>
+    </div>
+
+    <div class="dashboard">
+      <div class="stat-box">
+        <span class="stat-label">TOKEN BALANCE</span>
+        <span class="stat-value" id="token-count">1000</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">COST PER SPIN</span>
+        <span class="stat-value" id="cost-display">50</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">CONFIDENCE</span>
+        <span class="stat-value" id="confidence">99.7%</span>
+      </div>
+    </div>
+
+    <div class="reels-window">
+      <div class="reel-strip" id="reel-0"></div>
+      <div class="reel-strip" id="reel-1"></div>
+      <div class="reel-strip" id="reel-2"></div>
+    </div>
+
+    <div class="payline-indicator">
+      <span class="arrow-left"></span>
+      <span class="payline-text">PAYLINE</span>
+      <span class="arrow-right"></span>
+    </div>
+
+    <div id="message-box" class="message-box">
+      <span id="message">Insert prompt to begin inference...</span>
+    </div>
+
+    <div class="controls">
+      <div class="bet-controls">
+        <button class="bet-btn" id="bet-down" aria-label="Decrease bet">-</button>
+        <div class="bet-display">
+          <span class="bet-label">BET</span>
+          <span id="bet-value">50</span>
+        </div>
+        <button class="bet-btn" id="bet-up" aria-label="Increase bet">+</button>
+      </div>
+      <button class="lever-btn" id="spin-btn">
+        <span class="lever-text">PULL LEVER</span>
+        <span class="lever-subtext">( run inference )</span>
+      </button>
+    </div>
+
+    <div class="paytable">
+      <h2>PAYTABLE</h2>
+      <div class="paytable-grid" id="paytable-grid"></div>
+    </div>
+
+    <div class="ticker" id="ticker">
+      <div class="ticker-content" id="ticker-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

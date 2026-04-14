@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="machine-wrapper">
+    <div class="slot-machine">
+
+      <!-- Header -->
+      <header class="machine-header">
+        <div class="chase-lights" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span>
+        </div>
+        <h1>The One-Arm AI</h1>
+        <p class="tagline">Feed the Machine Your Precious Tokens</p>
+      </header>
+
+      <!-- Token Display -->
+      <div class="token-bar">
+        <div class="token-balance">
+          <span class="token-icon">&#x1FA99;</span>
+          <span id="token-count">100</span>
+          <span class="token-label">GPU Tokens</span>
+        </div>
+        <button id="add-tokens-btn" class="btn btn-add" aria-label="Add tokens">+ Buy Tokens</button>
+      </div>
+
+      <!-- Reels -->
+      <div class="reels-section">
+        <div class="reels-frame">
+          <div class="reel-window">
+            <div class="reel" id="reel-0"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-1"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-2"><div class="reel-strip"></div></div>
+          </div>
+          <div class="payline-indicator"></div>
+        </div>
+
+        <!-- Lever -->
+        <div class="lever-wrapper" id="lever-wrapper">
+          <div class="lever-slot"></div>
+          <div class="lever-arm" id="lever-arm">
+            <div class="lever-rod"></div>
+            <div class="lever-ball" id="lever-ball"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Commentary -->
+      <div class="ai-message-box">
+        <span class="ai-avatar">&#x1F916;</span>
+        <p id="ai-message">As a slot machine, I'm happy to take your tokens...</p>
+      </div>
+
+      <!-- Bet Controls + Spin -->
+      <div class="controls">
+        <div class="bet-group">
+          <button id="bet-down" class="btn btn-sm" aria-label="Decrease bet">&#x25C0;</button>
+          <div class="bet-display">
+            <span class="bet-label">BET</span>
+            <span id="bet-amount">10</span>
+          </div>
+          <button id="bet-up" class="btn btn-sm" aria-label="Increase bet">&#x25B6;</button>
+        </div>
+        <button id="spin-btn" class="btn btn-spin">SPIN</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-val" id="stat-spins">0</span>
+          <span class="stat-lbl">Spins</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val win" id="stat-wins">0</span>
+          <span class="stat-lbl">Wins</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val lose" id="stat-losses">0</span>
+          <span class="stat-lbl">Losses</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-winrate">0%</span>
+          <span class="stat-lbl">Win Rate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-net">0</span>
+          <span class="stat-lbl">Net P/L</span>
+        </div>
+      </div>
+
+      <!-- History Toggle -->
+      <div class="history-section">
+        <button class="history-toggle" id="history-toggle">
+          Spin History <span id="history-arrow">&#9660;</span>
+        </button>
+        <div class="history-body" id="history-body">
+          <ul id="history-list">
+            <li class="history-empty">No spins yet. The AI awaits your tokens.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Paytable -->
+      <div class="paytable">
+        <h2>Payout Table</h2>
+        <div class="paytable-rows">
+          <div class="pay-row jackpot">
+            <span class="pay-sym">&#x1F916;&#x1F916;&#x1F916;</span>
+            <span class="pay-name">Singularity</span>
+            <span class="pay-mult">x50</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x1F9E0;&#x1F9E0;&#x1F9E0;</span>
+            <span class="pay-name">Hallucination</span>
+            <span class="pay-mult">x25</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x1F525;&#x1F525;&#x1F525;</span>
+            <span class="pay-name">GPU Meltdown</span>
+            <span class="pay-mult">x20</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x2601;&#xFE0F;&#x2601;&#xFE0F;&#x2601;&#xFE0F;</span>
+            <span class="pay-name">Cloud Bill</span>
+            <span class="pay-mult">x15</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x1F4CA;&#x1F4CA;&#x1F4CA;</span>
+            <span class="pay-name">Benchmarks</span>
+            <span class="pay-mult">x10</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x26A1;&#x26A1;&#x26A1;</span>
+            <span class="pay-name">Overfitting</span>
+            <span class="pay-mult">x8</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">&#x1F41B;&#x1F41B;&#x1F41B;</span>
+            <span class="pay-name">It's a Feature</span>
+            <span class="pay-mult">x5</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-sym">Any 2 match</span>
+            <span class="pay-name"></span>
+            <span class="pay-mult">x2</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="machine-footer">
+        <p>Disclaimer: No neural networks were trained during this session. Side effects may include mass token loss.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Add Tokens Modal -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" role="dialog" aria-label="Add tokens">
+      <button class="modal-x" id="modal-close" aria-label="Close modal">&times;</button>
+      <h2>&#x1FA99; Purchase GPU Tokens</h2>
+      <p class="modal-sub">Warning: These tokens will be wasted on gambling instead of training.</p>
+      <div class="modal-input-row">
+        <input type="number" id="custom-token-input" min="1" max="99999" placeholder="Custom amount..." />
+        <button id="custom-add-btn" class="btn btn-confirm">Add</button>
+      </div>
+      <div class="quick-picks">
+        <button class="quick-btn" data-amount="50">50</button>
+        <button class="quick-btn" data-amount="100">100</button>
+        <button class="quick-btn" data-amount="250">250</button>
+        <button class="quick-btn" data-amount="500">500</button>
+      </div>
+      <p class="modal-fine-print">* These are fake tokens. Your real GPUs are safe. Your dignity is not.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

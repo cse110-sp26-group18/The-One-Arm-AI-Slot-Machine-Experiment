@@ -1,0 +1,349 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0d0d1a;
+  --machine-bg: #1a1a2e;
+  --accent: #e94560;
+  --gold: #f5c518;
+  --neon-blue: #00d4ff;
+  --neon-pink: #ff2e97;
+  --text: #eaeaea;
+  --reel-bg: #111122;
+}
+
+body {
+  font-family: "Courier New", Courier, monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* -- Machine shell -- */
+.machine {
+  background: var(--machine-bg);
+  border: 3px solid var(--accent);
+  border-radius: 18px;
+  padding: 28px 24px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow:
+    0 0 30px rgba(233, 69, 96, 0.3),
+    inset 0 0 60px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* -- Marquee -- */
+.marquee {
+  text-align: center;
+}
+
+.marquee h1 {
+  font-size: 1.7rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-shadow:
+    0 0 10px var(--gold),
+    0 0 30px var(--gold);
+  animation: flicker 3s infinite alternate;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: var(--neon-pink);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+@keyframes flicker {
+  0%, 90%, 100% { opacity: 1; }
+  92% { opacity: 0.7; }
+  94% { opacity: 1; }
+  96% { opacity: 0.6; }
+  98% { opacity: 1; }
+}
+
+/* -- Token display -- */
+.token-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #111;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 1.2rem;
+}
+
+.token-icon {
+  background: var(--gold);
+  color: #111;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+#token-count {
+  font-weight: bold;
+  color: var(--gold);
+  min-width: 60px;
+  text-align: right;
+}
+
+.token-label {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* -- Reels -- */
+.reels-window {
+  position: relative;
+  background: var(--reel-bg);
+  border: 3px solid #333;
+  border-radius: 10px;
+  padding: 12px 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.reel-container {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.reel {
+  width: 100px;
+  height: 100px;
+  background: #0a0a18;
+  border: 2px solid #2a2a40;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.reel .symbol {
+  font-size: 3rem;
+  transition: none;
+  user-select: none;
+}
+
+.reel.spinning .symbol {
+  animation: spin-blur 0.08s steps(1) infinite;
+}
+
+@keyframes spin-blur {
+  0%   { transform: translateY(-60px); opacity: 0.5; }
+  50%  { transform: translateY(0);     opacity: 1;   }
+  100% { transform: translateY(60px);  opacity: 0.5; }
+}
+
+.reel.landed {
+  animation: land-bounce 0.3s ease-out;
+}
+
+@keyframes land-bounce {
+  0%   { transform: translateY(-8px); }
+  60%  { transform: translateY(4px);  }
+  100% { transform: translateY(0);    }
+}
+
+.payline {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.4;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* -- Bet controls -- */
+.bet-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bet-controls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-blue);
+  background: transparent;
+  color: var(--neon-blue);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bet-controls button:hover {
+  background: var(--neon-blue);
+  color: #111;
+}
+
+.bet-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+}
+
+.bet-label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+#bet-amount {
+  font-weight: bold;
+  color: var(--neon-blue);
+  min-width: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* -- Lever / spin button -- */
+.lever-area {
+  width: 100%;
+}
+
+#spin-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(180deg, var(--accent), #b8233b);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+#spin-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(233, 69, 96, 0.6);
+}
+
+#spin-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+}
+
+#spin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lever-handle {
+  display: none;
+}
+
+/* -- Message area -- */
+.message {
+  min-height: 48px;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--neon-pink);
+  padding: 4px 8px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.message.visible {
+  opacity: 1;
+}
+
+.message.win {
+  color: var(--gold);
+  text-shadow: 0 0 8px var(--gold);
+  animation: pulse-glow 0.6s ease-in-out 3;
+}
+
+.message.lose {
+  color: #ff6b6b;
+}
+
+.message.broke {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* -- Paytable -- */
+.paytable {
+  width: 100%;
+  border-top: 1px solid #333;
+  padding-top: 14px;
+}
+
+.paytable h2 {
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.paytable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pay-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.pay-row span:last-child {
+  color: #999;
+}
+
+/* -- Win celebration -- */
+@keyframes celebrate {
+  0%, 100% { box-shadow: 0 0 30px rgba(233, 69, 96, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.5); }
+  50% { box-shadow: 0 0 50px rgba(245, 197, 24, 0.6), 0 0 80px rgba(245, 197, 24, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.5); }
+}
+
+.machine.celebrating {
+  animation: celebrate 0.5s ease-in-out 4;
+}

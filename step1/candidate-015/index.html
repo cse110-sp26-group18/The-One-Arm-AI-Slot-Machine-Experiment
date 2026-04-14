@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="machine">
+    <div class="marquee">
+      <h1>THE ONE-ARM AI</h1>
+      <p class="subtitle">Feed Me Your Tokens</p>
+    </div>
+
+    <div class="token-display">
+      <span class="token-icon">T</span>
+      <span id="token-count">1000</span>
+      <span class="token-label">tokens</span>
+    </div>
+
+    <div class="reels-window">
+      <div class="reel-container">
+        <div class="reel" id="reel-0">
+          <div class="symbol">&#129302;</div>
+        </div>
+        <div class="reel" id="reel-1">
+          <div class="symbol">&#129302;</div>
+        </div>
+        <div class="reel" id="reel-2">
+          <div class="symbol">&#129302;</div>
+        </div>
+      </div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="bet-controls">
+      <button id="bet-down" aria-label="Decrease bet">-</button>
+      <div class="bet-display">
+        <span class="bet-label">BET</span>
+        <span id="bet-amount">50</span>
+        <span class="bet-label">tokens</span>
+      </div>
+      <button id="bet-up" aria-label="Increase bet">+</button>
+    </div>
+
+    <div class="lever-area">
+      <button id="spin-btn" aria-label="Pull the lever to spin">
+        <span class="lever-text">PULL LEVER</span>
+        <div class="lever-handle"></div>
+      </button>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <div class="paytable">
+      <h2>PAYTABLE</h2>
+      <div class="paytable-grid">
+        <div class="pay-row"><span>&#129302; &#129302; &#129302;</span><span>Hallucination Jackpot &mdash; 10x</span></div>
+        <div class="pay-row"><span>&#128640; &#128640; &#128640;</span><span>AGI Achieved &mdash; 8x</span></div>
+        <div class="pay-row"><span>&#128165; &#128165; &#128165;</span><span>Server Meltdown &mdash; 5x</span></div>
+        <div class="pay-row"><span>&#128176; &#128176; &#128176;</span><span>VC Funding Round &mdash; 4x</span></div>
+        <div class="pay-row"><span>&#129504; &#129504; &#129504;</span><span>Big Brain Moment &mdash; 3x</span></div>
+        <div class="pay-row"><span>&#128373; &#128373; &#128373;</span><span>Data Leak &mdash; 2x</span></div>
+        <div class="pay-row"><span>Any two match</span><span>Partial Match &mdash; 1x</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
