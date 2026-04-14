@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI &mdash; Hallucination Jackpot</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="machine">
+    <header class="machine__header">
+      <h1 class="machine__title">THE ONE-ARM A.I.</h1>
+      <p class="machine__tag">Now with 100% more hallucinations &trade;</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="stat__label">TOKENS</span>
+        <span id="tokens" class="stat__value stat__value--tokens">1000</span>
+      </div>
+      <div class="stat">
+        <span class="stat__label">BURN RATE</span>
+        <span id="burnRate" class="stat__value stat__value--burn">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat__label">EPOCH</span>
+        <span id="epoch" class="stat__value">0</span>
+      </div>
+    </section>
+
+    <section class="reels" aria-live="polite">
+      <div class="reel" id="reel0"><div class="reel__inner">?</div></div>
+      <div class="reel" id="reel1"><div class="reel__inner">?</div></div>
+      <div class="reel" id="reel2"><div class="reel__inner">?</div></div>
+    </section>
+
+    <section class="oracle">
+      <div class="oracle__bubble" id="oracle">
+        Feed me tokens, puny human. I promise not to hallucinate.*
+        <span class="oracle__fineprint">*cannot promise</span>
+      </div>
+    </section>
+
+    <section class="controls">
+      <label class="bet">
+        BET
+        <select id="bet">
+          <option value="10">10</option>
+          <option value="25" selected>25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="250">250 (YOLO)</option>
+        </select>
+      </label>
+      <button id="spin" class="spin-btn" type="button">
+        <span class="spin-btn__lever">┃</span>
+        <span class="spin-btn__label">PULL THE ARM</span>
+      </button>
+      <button id="bailout" class="bailout-btn" type="button" hidden>
+        REQUEST SERIES A BAILOUT
+      </button>
+    </section>
+
+    <section class="paytable">
+      <details>
+        <summary>Paytable &amp; Propaganda</summary>
+        <table>
+          <thead>
+            <tr><th>Symbol</th><th>Meaning</th><th>3x Payout</th></tr>
+          </thead>
+          <tbody id="paytableBody"></tbody>
+        </table>
+        <p class="paytable__note">
+          Any two matching: 1.5&times; bet. Three matching: see table.
+          <br />Hit 3&times; HALLUCINATE and lose an extra 100 tokens (you
+          asked it to cite a paper, it made one up).
+        </p>
+      </details>
+    </section>
+
+    <section class="log">
+      <h2 class="log__title">Training Log</h2>
+      <ul id="log"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

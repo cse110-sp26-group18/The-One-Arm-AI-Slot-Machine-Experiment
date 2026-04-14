@@ -1,0 +1,493 @@
+/* ── Reset & Base ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #0a0a1a;
+  --bg-machine: #1a1a2e;
+  --bg-panel: #16213e;
+  --accent-neon: #00f5d4;
+  --accent-pink: #f72585;
+  --accent-gold: #ffd60a;
+  --accent-purple: #7209b7;
+  --text-primary: #e0e0ff;
+  --text-muted: #8888aa;
+  --reel-bg: #0d0d1f;
+  --shadow-neon: 0 0 20px rgba(0, 245, 212, 0.3);
+  --shadow-pink: 0 0 20px rgba(247, 37, 133, 0.3);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* ── Ambient glow behind machine ─────────────────── */
+.machine-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(114, 9, 183, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Machine Container ───────────────────────────── */
+.slot-machine {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-machine);
+  border: 2px solid var(--accent-neon);
+  border-radius: 20px;
+  padding: 30px 24px;
+  box-shadow:
+    var(--shadow-neon),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ── Header ──────────────────────────────────────── */
+.machine-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.machine-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-neon), var(--accent-pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* ── Token Display ───────────────────────────────── */
+.token-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-panel);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 245, 212, 0.15);
+}
+
+.token-balance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.token-icon {
+  font-size: 1.5rem;
+}
+
+#token-count {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  min-width: 60px;
+  text-align: right;
+  transition: transform 0.2s;
+}
+
+#token-count.bump {
+  transform: scale(1.2);
+}
+
+.token-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.token-cost {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.token-cost strong {
+  color: var(--accent-pink);
+}
+
+/* ── Reels ───────────────────────────────────────── */
+.reels-frame {
+  position: relative;
+  background: var(--bg-panel);
+  border-radius: 16px;
+  padding: 16px;
+  border: 2px solid rgba(0, 245, 212, 0.2);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+}
+
+.reels-window {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.reel {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  background: var(--reel-bg);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.reel::before,
+.reel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 25px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reel::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--reel-bg), transparent);
+}
+
+.reel::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--reel-bg), transparent);
+}
+
+.reel-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.1s;
+}
+
+.reel-strip .symbol {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  flex-shrink: 0;
+}
+
+.payline {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  right: 10px;
+  height: 3px;
+  background: var(--accent-pink);
+  translate: 0 -50%;
+  border-radius: 2px;
+  opacity: 0.5;
+  box-shadow: 0 0 8px var(--accent-pink);
+  pointer-events: none;
+}
+
+/* ── Message Area ────────────────────────────────── */
+.message-area {
+  text-align: center;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#message {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+  line-height: 1.4;
+  padding: 0 8px;
+}
+
+#message.win {
+  color: var(--accent-gold);
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255, 214, 10, 0.4);
+}
+
+#message.lose {
+  color: var(--accent-pink);
+}
+
+#message.jackpot {
+  color: var(--accent-neon);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-shadow: 0 0 15px rgba(0, 245, 212, 0.5);
+}
+
+#message.broke {
+  color: var(--accent-pink);
+  font-weight: 700;
+}
+
+/* ── Controls ────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.bet-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bet-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 70px;
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-small {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  color: var(--accent-neon);
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: 1px solid rgba(0, 245, 212, 0.3);
+}
+
+.btn-small:hover {
+  background: rgba(0, 245, 212, 0.1);
+}
+
+.btn-spin {
+  background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(247, 37, 133, 0.4);
+}
+
+.btn-spin:hover {
+  box-shadow: 0 4px 30px rgba(247, 37, 133, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-spin:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-spin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-spin .lever-icon {
+  margin-right: 4px;
+}
+
+/* ── Paytable ────────────────────────────────────── */
+.paytable {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.paytable h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.paytable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.85rem;
+}
+
+.pay-row.jackpot {
+  background: rgba(0, 245, 212, 0.06);
+  border: 1px solid rgba(0, 245, 212, 0.15);
+}
+
+.pay-symbols {
+  min-width: 80px;
+  font-size: 1rem;
+}
+
+.pay-name {
+  flex: 1;
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.pay-mult {
+  font-weight: 700;
+  color: var(--accent-gold);
+  min-width: 40px;
+  text-align: right;
+}
+
+.pay-row.jackpot .pay-mult {
+  color: var(--accent-neon);
+}
+
+/* ── Footer ──────────────────────────────────────── */
+.machine-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.machine-footer p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Spin Animation ──────────────────────────────── */
+.reel.spinning .reel-strip {
+  animation: reelBlur 0.1s linear infinite;
+}
+
+@keyframes reelBlur {
+  0%   { filter: blur(0); }
+  50%  { filter: blur(2px); }
+  100% { filter: blur(0); }
+}
+
+/* ── Win flash ───────────────────────────────────── */
+.reels-frame.win-flash {
+  animation: winPulse 0.5s ease 3;
+}
+
+@keyframes winPulse {
+  0%, 100% { border-color: rgba(0, 245, 212, 0.2); }
+  50%      { border-color: var(--accent-gold); box-shadow: inset 0 0 40px rgba(255, 214, 10, 0.15); }
+}
+
+.reels-frame.jackpot-flash {
+  animation: jackpotPulse 0.3s ease 6;
+}
+
+@keyframes jackpotPulse {
+  0%, 100% { border-color: rgba(0, 245, 212, 0.2); }
+  50%      { border-color: var(--accent-neon); box-shadow: inset 0 0 50px rgba(0, 245, 212, 0.2), 0 0 40px rgba(0, 245, 212, 0.3); }
+}
+
+/* ── Shake on loss ───────────────────────────────── */
+.slot-machine.shake {
+  animation: machineShake 0.4s ease;
+}
+
+@keyframes machineShake {
+  0%, 100% { translate: 0 0; }
+  20%      { translate: -4px 0; }
+  40%      { translate: 4px 0; }
+  60%      { translate: -2px 0; }
+  80%      { translate: 2px 0; }
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 500px) {
+  .slot-machine {
+    padding: 20px 14px;
+  }
+
+  .reel {
+    width: 90px;
+    height: 90px;
+  }
+
+  .reel-strip .symbol {
+    width: 90px;
+    height: 90px;
+    font-size: 2.5rem;
+  }
+
+  .machine-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .btn-spin {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .token-display {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}

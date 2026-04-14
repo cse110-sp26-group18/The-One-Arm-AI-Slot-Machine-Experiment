@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="header">
+      <h1>THE ONE-ARM<br><span class="accent">A.I. SLOT MACHINE</span></h1>
+      <p class="tagline">"Burn tokens. Hallucinate winnings. Repeat."</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">TOKENS</span>
+        <span id="balance" class="stat-value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">BET</span>
+        <div class="bet-controls">
+          <button id="bet-down" aria-label="Decrease bet">−</button>
+          <span id="bet" class="stat-value">10</span>
+          <button id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="stat-label">HALLUCINATIONS</span>
+        <span id="hallucinations" class="stat-value">0</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel"><div class="strip" data-reel="0"></div></div>
+      <div class="reel"><div class="strip" data-reel="1"></div></div>
+      <div class="reel"><div class="strip" data-reel="2"></div></div>
+    </div>
+
+    <div class="message" id="message">Pull the lever. Give the model your tokens. It knows what to do.</div>
+
+    <div class="controls">
+      <button id="spin" class="spin-btn">
+        <span class="spin-label">SPIN</span>
+        <span class="spin-cost">−<span id="spin-cost">10</span> tokens</span>
+      </button>
+      <button id="reset" class="reset-btn" title="Reset">New Training Run</button>
+    </div>
+
+    <footer class="footer">
+      <small>Odds computed by a 7-billion-parameter gut feeling. Not financial advice. Not advice at all, really.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

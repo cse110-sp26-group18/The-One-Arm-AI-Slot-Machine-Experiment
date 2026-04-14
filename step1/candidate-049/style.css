@@ -1,0 +1,406 @@
+/* ── Reset & base ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d0f1a;
+  --cabinet: #161829;
+  --gold: #f5c842;
+  --gold-dim: #a8882d;
+  --neon-blue: #42c6ff;
+  --neon-pink: #ff42a1;
+  --neon-green: #42ff8e;
+  --reel-bg: #0a0c14;
+  --text: #e8e8f0;
+  --muted: #7a7c98;
+  --danger: #ff4252;
+  --radius: 12px;
+  --shadow-glow: 0 0 20px rgba(66, 198, 255, 0.15);
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 12px 48px;
+}
+
+/* ── Cabinet ─────────────────────────────────────── */
+.cabinet {
+  width: 100%;
+  max-width: 480px;
+  background: var(--cabinet);
+  border-radius: var(--radius);
+  border: 2px solid rgba(66, 198, 255, 0.2);
+  box-shadow: var(--shadow-glow);
+  overflow: hidden;
+  padding-bottom: 24px;
+}
+
+/* ── Marquee header ──────────────────────────────── */
+.marquee {
+  text-align: center;
+  padding: 28px 16px 16px;
+  background: linear-gradient(180deg, rgba(66, 198, 255, 0.08) 0%, transparent 100%);
+}
+
+.marquee h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--gold) 0%, #ffe082 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 8px rgba(245, 200, 66, 0.4));
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── Token bar ───────────────────────────────────── */
+.token-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(66, 198, 255, 0.1);
+  border-bottom: 1px solid rgba(66, 198, 255, 0.1);
+}
+
+.token-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.token-count {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  min-width: 5ch;
+  text-align: right;
+  transition: color 0.3s;
+}
+
+.token-count.win-flash {
+  color: var(--neon-green);
+}
+
+.token-count.lose-flash {
+  color: var(--danger);
+}
+
+.token-unit {
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+  font-weight: 600;
+}
+
+/* ── Reels ───────────────────────────────────────── */
+.reels-window {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 16px;
+}
+
+.reel-container {
+  width: 120px;
+  height: 120px;
+  background: var(--reel-bg);
+  border-radius: var(--radius);
+  border: 2px solid rgba(66, 198, 255, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Faint top/bottom fade */
+.reel-container::before,
+.reel-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  z-index: 2;
+  pointer-events: none;
+}
+.reel-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--reel-bg), transparent);
+}
+.reel-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--reel-bg), transparent);
+}
+
+.reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.05s linear;
+}
+
+.reel-symbol {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 2.8rem;
+  user-select: none;
+}
+
+.reel-symbol .sym-label {
+  font-size: 0.55rem;
+  color: var(--muted);
+  margin-top: 2px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Win / message ───────────────────────────────── */
+.message {
+  text-align: center;
+  padding: 6px 16px 2px;
+  min-height: 2.2em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--neon-blue);
+  transition: opacity 0.3s;
+}
+
+/* ── Controls ────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 16px 16px;
+}
+
+.bet-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bet-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-dim);
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.bet-btn:hover {
+  background: rgba(245, 200, 66, 0.1);
+  border-color: var(--gold);
+}
+.bet-btn:active {
+  transform: scale(0.92);
+}
+
+.bet-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 80px;
+  justify-content: center;
+}
+.bet-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+#bet-amount {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.bet-unit {
+  font-size: 0.65rem;
+  color: var(--gold-dim);
+  font-weight: 600;
+}
+
+.spin-btn {
+  width: 110px;
+  height: 56px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, var(--neon-pink), #d63384);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(255, 66, 161, 0.35);
+  transition: transform 0.1s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.spin-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 28px rgba(255, 66, 161, 0.55);
+}
+.spin-btn:active {
+  transform: scale(0.96);
+}
+.spin-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Paytable ────────────────────────────────────── */
+.paytable {
+  margin: 12px 16px 0;
+  border-top: 1px solid rgba(66, 198, 255, 0.1);
+  padding-top: 14px;
+}
+
+.paytable h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.paytable-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.pay-icons {
+  font-size: 1rem;
+  min-width: 3.6em;
+  text-align: center;
+}
+
+.pay-mult {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ── History / Prompt Log ────────────────────────── */
+.history {
+  margin: 16px 16px 0;
+  border-top: 1px solid rgba(66, 198, 255, 0.1);
+  padding-top: 14px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.history h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.history ul {
+  list-style: none;
+}
+
+.history li {
+  font-size: 0.72rem;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.history li .log-result {
+  font-weight: 600;
+}
+.history li .log-result.win {
+  color: var(--neon-green);
+}
+.history li .log-result.lose {
+  color: var(--danger);
+}
+
+/* ── Animations ──────────────────────────────────── */
+@keyframes bounce-win {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.reel-container.winner {
+  animation: bounce-win 0.35s ease 2;
+  border-color: var(--neon-green);
+  box-shadow: 0 0 16px rgba(66, 255, 142, 0.35);
+}
+
+/* Scrollbar */
+.history::-webkit-scrollbar {
+  width: 4px;
+}
+.history::-webkit-scrollbar-thumb {
+  background: rgba(66, 198, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 400px) {
+  .marquee h1 {
+    font-size: 1.5rem;
+  }
+  .reel-container {
+    width: 96px;
+    height: 96px;
+  }
+  .reel-symbol {
+    width: 96px;
+    height: 96px;
+    font-size: 2.2rem;
+  }
+  .spin-btn {
+    width: 96px;
+    height: 48px;
+    font-size: 0.95rem;
+  }
+}

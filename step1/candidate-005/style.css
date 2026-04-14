@@ -1,0 +1,258 @@
+/* ── Reset & Base ────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #0d0015 100%);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #e0d6f2;
+  overflow-x: hidden;
+}
+
+/* ── Cabinet ─────────────────────────────────────── */
+.cabinet {
+  width: 420px;
+  max-width: 95vw;
+  background: linear-gradient(180deg, #1e1035 0%, #120822 100%);
+  border: 3px solid #7b2ff7;
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  box-shadow:
+    0 0 40px rgba(123, 47, 247, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+/* ── Header ──────────────────────────────────────── */
+header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #f5c842, #ff6fd8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: #a78bfa;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+/* ── Token Display ───────────────────────────────── */
+.token-display {
+  margin: 16px auto 12px;
+  padding: 8px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(123, 47, 247, 0.15);
+  border: 1px solid #7b2ff7;
+  border-radius: 40px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+#token-count {
+  color: #f5c842;
+  min-width: 40px;
+  transition: transform 0.2s;
+}
+
+#token-count.bump {
+  transform: scale(1.3);
+}
+
+.token-label {
+  font-size: 0.85rem;
+  color: #a78bfa;
+}
+
+/* ── Reels ───────────────────────────────────────── */
+.reels-window {
+  margin: 18px auto;
+  background: #0b0514;
+  border: 2px solid #3b1a6e;
+  border-radius: 16px;
+  padding: 12px 8px;
+  overflow: hidden;
+}
+
+.reel-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reel {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(180deg, #160a28, #1e0f38);
+  border: 2px solid #4c2a85;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.reel .symbol {
+  font-size: 3rem;
+  transition: none;
+  user-select: none;
+}
+
+.reel.spinning .symbol {
+  animation: spin-blur 0.10s steps(1) infinite;
+}
+
+@keyframes spin-blur {
+  0%   { transform: translateY(-100%); opacity: 0.5; }
+  50%  { transform: translateY(0);     opacity: 1;   }
+  100% { transform: translateY(100%);  opacity: 0.5; }
+}
+
+.reel.landing .symbol {
+  animation: land-bounce 0.35s ease-out;
+}
+
+@keyframes land-bounce {
+  0%   { transform: translateY(-40px); }
+  60%  { transform: translateY(6px);   }
+  100% { transform: translateY(0);     }
+}
+
+/* ── Message Box ─────────────────────────────────── */
+.message-box {
+  min-height: 48px;
+  margin: 10px 0;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #c8b8e8;
+  transition: color 0.3s;
+}
+
+.message-box.win {
+  color: #4ade80;
+}
+
+.message-box.lose {
+  color: #fb7185;
+}
+
+/* ── Bet Controls ────────────────────────────────── */
+.bet-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 10px 0;
+}
+
+.bet-controls button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #7b2ff7;
+  background: rgba(123, 47, 247, 0.15);
+  color: #d4b8ff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.bet-controls button:hover {
+  background: rgba(123, 47, 247, 0.4);
+}
+
+.bet-display {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+#bet-amount {
+  color: #f5c842;
+}
+
+/* ── Lever Button ────────────────────────────────── */
+.lever-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7b2ff7, #c026d3);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 20px rgba(123, 47, 247, 0.4);
+}
+
+.lever-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(123, 47, 247, 0.6);
+}
+
+.lever-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.lever-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Paytable ────────────────────────────────────── */
+.paytable {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #2d1753;
+}
+
+.paytable h2 {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7b5fb5;
+  margin-bottom: 10px;
+}
+
+.paytable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pay-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #9a85c2;
+  padding: 3px 0;
+}
+
+.pay-row span:first-child {
+  flex-shrink: 0;
+}

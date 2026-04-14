@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The One-Arm AI Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>🎰 The One-Arm AI Slot Machine 🎰</h1>
+      <p class="tagline">Hallucinate responsibly. Tokens not included.</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="stat-label">Tokens</span>
+        <span id="tokens" class="stat-value">100</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Bet</span>
+        <span id="bet" class="stat-value">5</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Last Win</span>
+        <span id="lastWin" class="stat-value">0</span>
+      </div>
+    </section>
+
+    <section class="reels" id="reels">
+      <div class="reel"><div class="reel-strip" id="reel0"></div></div>
+      <div class="reel"><div class="reel-strip" id="reel1"></div></div>
+      <div class="reel"><div class="reel-strip" id="reel2"></div></div>
+    </section>
+
+    <section class="controls">
+      <button id="betDown" class="btn small">−</button>
+      <button id="spin" class="btn big">SPIN</button>
+      <button id="betUp" class="btn small">+</button>
+    </section>
+
+    <section class="message" id="message">
+      Pull the lever. The model is ready to "think."
+    </section>
+
+    <section class="paytable">
+      <h3>Paytable (per token bet)</h3>
+      <ul>
+        <li>🧠 🧠 🧠 — 50× &nbsp;<em>"Emergent behavior"</em></li>
+        <li>🤖 🤖 🤖 — 25× &nbsp;<em>AGI any day now</em></li>
+        <li>💸 💸 💸 — 20× &nbsp;<em>Burn rate achieved</em></li>
+        <li>🌀 🌀 🌀 — 15× &nbsp;<em>Certified hallucination</em></li>
+        <li>📈 📈 📈 — 10× &nbsp;<em>Up and to the right</em></li>
+        <li>🍒 🍒 🍒 — 5× &nbsp;<em>Training data leak</em></li>
+        <li>Any two matching — 2×</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <button id="reset" class="btn tiny">Beg VC for more tokens</button>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI Bandit</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="machine">
+    <div class="top-bar">
+      <div class="light"></div>
+      <div class="light"></div>
+      <div class="light"></div>
+      <h1>THE ONE-ARM AI BANDIT</h1>
+      <div class="light"></div>
+      <div class="light"></div>
+      <div class="light"></div>
+    </div>
+
+    <p class="tagline">Feed the machine. It learns nothing.</p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-label">TOKENS</span>
+        <span class="stat-value" id="tokens">500</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">SPINS</span>
+        <span class="stat-value" id="spin-count">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">WIN RATE</span>
+        <span class="stat-value" id="win-rate">0%</span>
+      </div>
+    </div>
+
+    <div class="reels">
+      <div class="reel-frame">
+        <div class="reel-viewport">
+          <div class="reel-strip" id="reel-0"></div>
+        </div>
+      </div>
+      <div class="reel-frame">
+        <div class="reel-viewport">
+          <div class="reel-strip" id="reel-1"></div>
+        </div>
+      </div>
+      <div class="reel-frame">
+        <div class="reel-viewport">
+          <div class="reel-strip" id="reel-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="output-screen" id="output-screen">
+      <span class="cursor">></span> Awaiting input...
+    </div>
+
+    <div class="controls">
+      <div class="bet-area">
+        <label class="bet-label">BET</label>
+        <button class="bet-adj" id="bet-down">-</button>
+        <span class="bet-value" id="bet-value">25</span>
+        <button class="bet-adj" id="bet-up">+</button>
+      </div>
+      <button class="lever-btn" id="lever">
+        <span class="lever-text">PULL</span>
+        <span class="lever-sub">( invoke model )</span>
+      </button>
+    </div>
+
+    <div class="paytable">
+      <h3>PAYOUT TABLE</h3>
+      <div class="paytable-entries" id="paytable"></div>
+    </div>
+
+    <div class="footer-ticker" id="footer-ticker"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

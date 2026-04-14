@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI — Token Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◉</span>
+      <h1>The One-Arm AI</h1>
+      <span class="tagline">now with 100% more hallucinations</span>
+    </div>
+    <div class="wallet">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span id="balance" class="value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">Context</span>
+        <span id="context" class="value">8k</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="machine">
+    <div class="marquee">
+      <span id="marquee-text">INSERT TOKENS · TRAIN YOUR LUCK · NO REFUNDS · TERMS AND CONDITIONS APPLY</span>
+    </div>
+
+    <div class="screen">
+      <div class="reels" id="reels">
+        <div class="reel" data-reel="0"><div class="strip"></div></div>
+        <div class="reel" data-reel="1"><div class="strip"></div></div>
+        <div class="reel" data-reel="2"><div class="strip"></div></div>
+      </div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="controls">
+      <div class="bet-control">
+        <label>BET</label>
+        <button id="bet-down" aria-label="Decrease bet">−</button>
+        <span id="bet" class="bet-value">10</span>
+        <button id="bet-up" aria-label="Increase bet">+</button>
+      </div>
+
+      <button id="spin" class="spin-btn">
+        <span class="spin-label">PULL THE ARM</span>
+        <span class="spin-sub">(burn GPUs)</span>
+      </button>
+
+      <button id="max-bet" class="max-btn">MAX BET<br><small>yolo</small></button>
+    </div>
+
+    <div class="status">
+      <p id="status-line">Feed the machine. It's always hungry.</p>
+    </div>
+  </main>
+
+  <aside class="paytable">
+    <h2>PAYTABLE <small>(training data not included)</small></h2>
+    <ul id="paytable-list"></ul>
+  </aside>
+
+  <footer class="footer">
+    <p>This machine is 99.9% accurate* <span class="aside">*accuracy not guaranteed, measured, or possible</span></p>
+    <button id="reset">FACTORY RESET</button>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
