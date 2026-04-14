@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HalluciSlots 9000 — The AI Token Burner</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🤖 HalluciSlots 9000</h1>
+    <p class="tagline">Where your tokens go to dream.</p>
+  </header>
+
+  <main class="machine">
+    <div class="screen">
+      <div class="stats">
+        <div class="stat">
+          <span class="label">Tokens</span>
+          <span id="tokens" class="value">1000</span>
+        </div>
+        <div class="stat">
+          <span class="label">Bet</span>
+          <span id="bet" class="value">10</span>
+        </div>
+        <div class="stat">
+          <span class="label">Context Window</span>
+          <span id="spins" class="value">0</span>
+        </div>
+      </div>
+
+      <div class="reels" id="reels">
+        <div class="reel"><div class="strip" data-index="0"></div></div>
+        <div class="reel"><div class="strip" data-index="1"></div></div>
+        <div class="reel"><div class="strip" data-index="2"></div></div>
+      </div>
+
+      <div class="message" id="message">Insert tokens. Pray to the transformer.</div>
+    </div>
+
+    <div class="controls">
+      <button id="betDown" class="btn small">−</button>
+      <button id="spin" class="btn lever">PULL THE ARM</button>
+      <button id="betUp" class="btn small">+</button>
+    </div>
+
+    <div class="extra">
+      <button id="buyTokens" class="btn ghost">💳 Buy more tokens ($4.99)</button>
+      <button id="reset" class="btn ghost">♻️ Reset run</button>
+    </div>
+  </main>
+
+  <footer>
+    <small>No actual intelligence was used in the making of this machine.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

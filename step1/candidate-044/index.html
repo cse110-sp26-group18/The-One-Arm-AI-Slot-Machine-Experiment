@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HalluciSlots — The AI Token Casino</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>🤖 HalluciSlots 🎰</h1>
+    <p class="tagline">Burn tokens. Hallucinate jackpots. Pray to the model.</p>
+  </header>
+
+  <main class="machine">
+    <div class="stats">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span id="tokens" class="value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">Context Window</span>
+        <span id="context" class="value">0 / 8192</span>
+      </div>
+      <div class="stat">
+        <span class="label">Bet</span>
+        <span id="bet" class="value">10</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel" data-reel="0"><div class="strip"></div></div>
+      <div class="reel" data-reel="1"><div class="strip"></div></div>
+      <div class="reel" data-reel="2"><div class="strip"></div></div>
+    </div>
+
+    <div class="controls">
+      <button id="bet-down">− Bet</button>
+      <button id="spin" class="spin">PULL THE LEVER</button>
+      <button id="bet-up">+ Bet</button>
+    </div>
+
+    <div id="message" class="message">Welcome, human. Insert tokens to unlock intelligence.</div>
+
+    <div class="log">
+      <h3>System Prompt Log</h3>
+      <ul id="log"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>⚠️ HalluciSlots may confidently produce wrong answers. No refunds on training data.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

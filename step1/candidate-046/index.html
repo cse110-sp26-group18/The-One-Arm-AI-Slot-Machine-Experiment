@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Hallucinator 3000 — AI Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>THE HALLUCINATOR 3000</h1>
+      <p class="tagline">"Now with 40% more confident nonsense!"</p>
+    </header>
+
+    <div class="display">
+      <div class="balance-box">
+        <span class="label">TOKENS</span>
+        <span id="tokens">100</span>
+      </div>
+      <div class="balance-box">
+        <span class="label">BET</span>
+        <span id="bet">5</span>
+      </div>
+      <div class="balance-box">
+        <span class="label">LAST WIN</span>
+        <span id="lastWin">0</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel"><div class="strip" data-reel="0"></div></div>
+      <div class="reel"><div class="strip" data-reel="1"></div></div>
+      <div class="reel"><div class="strip" data-reel="2"></div></div>
+    </div>
+
+    <div class="message" id="message">Insert prompt. Pull lever. Pray.</div>
+
+    <div class="controls">
+      <button id="betDown">− BET</button>
+      <button id="betUp">+ BET</button>
+      <button id="spin" class="lever">🎰 SPIN (Generate)</button>
+      <button id="refill">Buy Tokens (API credits)</button>
+    </div>
+
+    <aside class="paytable">
+      <h3>Paytable — what your tokens buy</h3>
+      <ul>
+        <li><span>🧠 🧠 🧠</span> Artificial General Bankruptcy ×50</li>
+        <li><span>🤖 🤖 🤖</span> Deploy to Production ×20</li>
+        <li><span>💡 💡 💡</span> Eureka (probably wrong) ×15</li>
+        <li><span>📎 📎 📎</span> It looks like you're gambling ×10</li>
+        <li><span>🔮 🔮 🔮</span> Vibes-Based Forecast ×8</li>
+        <li><span>🍄 🍄 🍄</span> Full Hallucination ×5</li>
+        <li>Any two matching — Partial Credit ×2</li>
+      </ul>
+    </aside>
+  </div>
+
+  <footer class="disclaimer">
+    Disclaimer: No neurons were trained in the making of your losses. Gamble responsibly; the model will not.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
