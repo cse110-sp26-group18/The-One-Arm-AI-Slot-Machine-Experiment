@@ -28,7 +28,8 @@ styles.css
 
 <!-- 1-3 bullets. Does the slot machine actually look/feel like one?
      Does it spin? Is the "AI tokens" joke present? Any obvious UX issues? -->
-     - the app works properly
+     - the app does not work properly
+     - complete lack of design, plain HTML
 
 -
 
@@ -37,8 +38,7 @@ styles.css
 <!-- 1-3 bullets. Structure, separation of HTML/CSS/JS, dead code,
      accessibility, console errors, obvious bugs. -->
 
-     - looks well organized
-     - the HTML file is a bit harder to read
+     - the website doesn't work well at all so the code must not be great
 
 -
 
