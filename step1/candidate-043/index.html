@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The One-Arm AI Slot Machine</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="machine">
+    <header class="marquee">
+      <h1>THE ONE-ARM A.I. SLOT</h1>
+      <p class="tagline">Burn tokens. Hallucinate riches.</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span id="tokens" class="value">1000</span>
+      </div>
+      <div class="stat">
+        <span class="label">Bet</span>
+        <div class="bet-controls">
+          <button id="bet-down" aria-label="decrease bet">-</button>
+          <span id="bet" class="value">10</span>
+          <button id="bet-up" aria-label="increase bet">+</button>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="label">Context Left</span>
+        <div class="context-bar"><div id="context-fill"></div></div>
+      </div>
+    </section>
+
+    <section class="reels" id="reels">
+      <div class="reel" data-reel="0"><div class="strip"></div></div>
+      <div class="reel" data-reel="1"><div class="strip"></div></div>
+      <div class="reel" data-reel="2"><div class="strip"></div></div>
+    </section>
+
+    <section class="controls">
+      <button id="spin" class="lever">
+        <span class="lever-top">PULL</span>
+        <span class="lever-bottom">to PROMPT</span>
+      </button>
+      <button id="recharge" class="recharge" title="Beg OpenAI for more tokens">+ Top Up</button>
+    </section>
+
+    <section class="log" aria-live="polite">
+      <h2>AI Output Log</h2>
+      <ul id="log-list"></ul>
+    </section>
+
+    <footer class="fineprint">
+      * No actual intelligence was harmed. Past performance does not reflect
+      future hallucinations. Training data sold separately.
+    </footer>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

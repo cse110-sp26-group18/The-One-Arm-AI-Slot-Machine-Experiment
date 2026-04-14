@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="title-bar">
+    <h1>THE ONE-ARM <span class="glitch" data-text="A.I.">A.I.</span> SLOT MACHINE</h1>
+    <p class="tagline">Burn tokens. Hallucinate jackpots. Feel nothing.</p>
+  </header>
+
+  <main class="machine">
+    <div class="hud">
+      <div class="stat">
+        <span class="label">TOKENS</span>
+        <span id="tokens" class="value">100</span>
+      </div>
+      <div class="stat">
+        <span class="label">COST / SPIN</span>
+        <span class="value">5</span>
+      </div>
+      <div class="stat">
+        <span class="label">MODEL</span>
+        <span class="value">GPT-Slop 4o</span>
+      </div>
+    </div>
+
+    <div class="reels" id="reels">
+      <div class="reel"><div class="strip" id="strip0"></div></div>
+      <div class="reel"><div class="strip" id="strip1"></div></div>
+      <div class="reel"><div class="strip" id="strip2"></div></div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="message-box">
+      <p id="message">Insert tokens. The machine will pretend to think.</p>
+    </div>
+
+    <div class="controls">
+      <button id="spin-btn" class="lever">
+        <span class="lever-text">PULL</span>
+        <span class="lever-sub">(spend 5 tokens)</span>
+      </button>
+      <button id="reset-btn" class="ghost-btn">RESET WEIGHTS</button>
+      <button id="free-btn" class="ghost-btn">BEG FOR COMPUTE</button>
+    </div>
+
+    <div class="paytable">
+      <h2>PAYTABLE <span class="subtle">(definitely not rigged)</span></h2>
+      <ul>
+        <li><span class="sym">🤖🤖🤖</span> <span>+500 tokens — AGI ACHIEVED</span></li>
+        <li><span class="sym">🧠🧠🧠</span> <span>+200 tokens — Sentience (allegedly)</span></li>
+        <li><span class="sym">💾💾💾</span> <span>+150 tokens — Training data found</span></li>
+        <li><span class="sym">⚡⚡⚡</span> <span>+100 tokens — GPU go brrr</span></li>
+        <li><span class="sym">📉📉📉</span> <span>+75 tokens — Loss go down</span></li>
+        <li><span class="sym">🪄🪄🪄</span> <span>+60 tokens — Prompt engineering</span></li>
+        <li><span class="sym">Any pair</span> <span>+10 tokens — Partial credit</span></li>
+        <li><span class="sym">💀 anywhere</span> <span>-10 tokens — HALLUCINATION</span></li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>No neural networks were harmed. Several were embarrassed.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

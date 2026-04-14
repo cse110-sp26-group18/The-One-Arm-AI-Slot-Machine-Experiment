@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HallucinOmatic 9000 — The AI Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="marquee">
+      <h1>HallucinOmatic <span class="blink">9000</span></h1>
+      <p class="tagline">Now with <em>Synergistic Alignment&trade;</em> — pull to prompt!</p>
+    </header>
+
+    <section class="hud">
+      <div class="stat">
+        <span class="label">Tokens</span>
+        <span class="value" id="tokens">100</span>
+      </div>
+      <div class="stat">
+        <span class="label">Bet</span>
+        <div class="bet-controls">
+          <button id="bet-down" aria-label="Decrease bet">&minus;</button>
+          <span class="value" id="bet">5</span>
+          <button id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="label">Burn Rate</span>
+        <span class="value" id="burn">0</span>
+      </div>
+    </section>
+
+    <section class="reels" id="reels" aria-live="polite">
+      <div class="reel" data-reel="0"><div class="strip"></div></div>
+      <div class="reel" data-reel="1"><div class="strip"></div></div>
+      <div class="reel" data-reel="2"><div class="strip"></div></div>
+      <div class="payline"></div>
+    </section>
+
+    <section class="message-area">
+      <p id="message">Insert API key. Pray to the stochastic parrot.</p>
+    </section>
+
+    <section class="controls">
+      <button id="spin" class="spin-btn">PROMPT IT</button>
+      <button id="max" class="max-btn">MAX HYPE</button>
+      <button id="bailout" class="bailout-btn" hidden>Request VC Bailout</button>
+    </section>
+
+    <aside class="paytable">
+      <h2>Paytable <span class="small">(estimated, hallucinated)</span></h2>
+      <ul id="paytable"></ul>
+    </aside>
+
+    <footer class="fine-print">
+      <p>Disclaimer: tokens are not real, neither is the intelligence. No GPUs were harmed — they were, however, billed.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
