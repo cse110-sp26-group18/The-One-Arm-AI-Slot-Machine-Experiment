@@ -7,75 +7,130 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="cabinet">
-    <div class="marquee">
-      <h1>🤖 THE ONE-ARM AI BANDIT 🎰</h1>
-      <p class="tagline">"Statistically guaranteed to hallucinate your fortune!"</p>
-    </div>
+  <div class="stars" id="stars"></div>
+  <div class="casino-glow"></div>
 
-    <div class="token-bar">
-      <div class="token-info">
-        <span class="label">YOUR TOKENS</span>
-        <span class="token-count" id="token-count">100</span>
-      </div>
-      <div class="token-info">
-        <span class="label">SPINS</span>
-        <span id="spin-count">0</span>
-      </div>
-      <div class="token-info">
-        <span class="label">WIN RATE</span>
-        <span id="win-rate">0%</span>
-      </div>
-    </div>
-
-    <div class="slot-window">
-      <div class="reel-frame">
-        <div class="reel" id="reel-0">
-          <div class="symbol">🧠</div>
+  <div class="machine-wrapper">
+    <div class="cabinet">
+      <div class="marquee">
+        <div class="marquee-lights">
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
         </div>
-        <div class="reel" id="reel-1">
-          <div class="symbol">🤖</div>
-        </div>
-        <div class="reel" id="reel-2">
-          <div class="symbol">💡</div>
+        <h1>🤖 THE ONE-ARM AI BANDIT 🎰</h1>
+        <p class="tagline">"Statistically guaranteed to hallucinate your fortune!"</p>
+        <div class="marquee-lights bottom">
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+          <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
         </div>
       </div>
-    </div>
 
-    <div class="result-display" id="result-display">
-      Insert tokens and pull the lever... if you dare.
-    </div>
-
-    <div class="controls">
-      <div class="bet-controls">
-        <button class="bet-btn" id="bet-down" aria-label="Decrease bet">−</button>
-        <div class="bet-display">
-          <span class="label">BET</span>
-          <span id="bet-amount">10</span>
+      <div class="token-bar">
+        <div class="token-info">
+          <span class="label">YOUR TOKENS</span>
+          <span class="token-count" id="token-count">100</span>
         </div>
-        <button class="bet-btn" id="bet-up" aria-label="Increase bet">+</button>
+        <div class="token-info">
+          <span class="label">SPINS</span>
+          <span id="spin-count">0</span>
+        </div>
+        <div class="token-info">
+          <span class="label">WIN RATE</span>
+          <span id="win-rate">0%</span>
+        </div>
+        <div class="token-info">
+          <span class="label">BEST WIN</span>
+          <span id="best-win">0</span>
+        </div>
       </div>
-      <button class="spin-btn" id="spin-btn">🎰 PULL THE LEVER</button>
-    </div>
 
-    <div class="paytable">
-      <h3>💰 PAYTABLE</h3>
-      <div class="paytable-grid">
-        <div class="pay-row"><span>🧠🧠🧠</span><span>10x — "AGI achieved!" (just kidding)</span></div>
-        <div class="pay-row"><span>🤖🤖🤖</span><span>5x — Robots approve</span></div>
-        <div class="pay-row"><span>💡💡💡</span><span>3x — A bright idea (rare for AI)</span></div>
-        <div class="pay-row"><span>🔥🔥🔥</span><span>8x — Your GPU is on fire</span></div>
-        <div class="pay-row"><span>Any match</span><span>2x — Even a broken model is right sometimes</span></div>
+      <div class="slot-body">
+        <div class="slot-window">
+          <div class="reel-frame">
+            <div class="reel" id="reel-0">
+              <div class="symbol">🧠</div>
+            </div>
+            <div class="reel" id="reel-1">
+              <div class="symbol">🤖</div>
+            </div>
+            <div class="reel" id="reel-2">
+              <div class="symbol">💡</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lever-assembly" id="lever-assembly">
+          <div class="lever-slot"></div>
+          <div class="lever-arm" id="lever-arm">
+            <div class="lever-shaft"></div>
+            <div class="lever-knob" id="lever-knob">PULL</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="history-panel">
-      <h3>📜 Hallucination Log</h3>
-      <ul id="history-list"></ul>
-    </div>
+      <div class="result-display" id="result-display">
+        Insert tokens and pull the lever... if you dare. 🎰
+      </div>
 
-    <div class="ai-ticker" id="ai-ticker">
-      <span id="ticker-text">BREAKING: Local AI loses all its tokens, blames "training data"...</span>
+      <div class="controls">
+        <div class="bet-controls">
+          <button class="bet-btn" id="bet-down" aria-label="Decrease bet">−</button>
+          <div class="bet-display">
+            <span class="label">BET</span>
+            <span id="bet-amount">10</span>
+          </div>
+          <button class="bet-btn" id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+        <button class="spin-btn" id="spin-btn">🎰 PULL THE LEVER</button>
+        <button class="add-tokens-btn" id="add-tokens-btn">🪙 BEG FOR TOKENS</button>
+      </div>
+
+      <div class="paytable">
+        <h3>💰 PAYTABLE — "Trust us, the math checks out"</h3>
+        <div class="paytable-grid">
+          <div class="pay-row"><span>🧠🧠🧠</span><span>10x — "AGI achieved!" (terms & conditions apply)</span></div>
+          <div class="pay-row"><span>🤖🤖🤖</span><span>5x — Robots approve of your gambling</span></div>
+          <div class="pay-row"><span>💡💡💡</span><span>3x — A bright idea (rare for AI)</span></div>
+          <div class="pay-row"><span>🔥🔥🔥</span><span>8x — Your GPU is literally on fire</span></div>
+          <div class="pay-row"><span>💸💸💸</span><span>6x — Money printer go brrrrrr</span></div>
+          <div class="pay-row"><span>👾👾👾</span><span>7x — Retro AI invasion bonus</span></div>
+          <div class="pay-row"><span>Any pair</span><span>2x — Even a broken model is right sometimes</span></div>
+        </div>
+      </div>
+
+      <div class="spin-tracker">
+        <h3>📊 Spin Tracker — "The Data Doesn't Lie (But We Might)"</h3>
+        <div class="tracker-stats">
+          <div class="stat-card">
+            <span class="stat-value" id="total-wagered">0</span>
+            <span class="stat-label">Total Wagered</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="total-won">0</span>
+            <span class="stat-label">Total Won</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="net-profit">0</span>
+            <span class="stat-label">Net Profit</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="streak-display">0</span>
+            <span class="stat-label" id="streak-label">Current Streak</span>
+          </div>
+        </div>
+        <div class="streak-bar" id="streak-bar"></div>
+      </div>
+
+      <div class="history-panel">
+        <h3>📜 Hallucination Log</h3>
+        <ul id="history-list"></ul>
+      </div>
+
+      <div class="ai-ticker" id="ai-ticker">
+        <span id="ticker-text">BREAKING: Local AI loses all its tokens, blames "training data"...</span>
+      </div>
     </div>
   </div>
 
