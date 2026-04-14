@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cabinet">
+    <header>
+      <h1>THE ONE-ARM AI</h1>
+      <p class="subtitle">Where Every Spin Roasts the Robots</p>
+    </header>
+
+    <div class="token-display">
+      <span id="token-count">100</span> <span class="token-label">AI Tokens</span>
+    </div>
+
+    <div class="reels-window">
+      <div class="reel-container">
+        <div class="reel" id="reel-0">
+          <div class="symbol">🤖</div>
+        </div>
+        <div class="reel" id="reel-1">
+          <div class="symbol">🧠</div>
+        </div>
+        <div class="reel" id="reel-2">
+          <div class="symbol">💬</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="message-box" id="message-box">
+      Insert tokens and pull the lever!
+    </div>
+
+    <div class="bet-controls">
+      <button id="bet-down" aria-label="Decrease bet">−</button>
+      <span class="bet-display">Bet: <span id="bet-amount">10</span></span>
+      <button id="bet-up" aria-label="Increase bet">+</button>
+    </div>
+
+    <button class="lever-btn" id="spin-btn">
+      <span class="lever-text">🎰 PULL THE LEVER</span>
+    </button>
+
+    <div class="paytable">
+      <h2>Paytable</h2>
+      <div class="paytable-grid">
+        <div class="pay-row"><span>🤖🤖🤖</span><span>5x — "AI will take your job… badly"</span></div>
+        <div class="pay-row"><span>🧠🧠🧠</span><span>8x — "Neural net achieved sentience… of a goldfish"</span></div>
+        <div class="pay-row"><span>💬💬💬</span><span>4x — "ChatGPT wrote this paytable"</span></div>
+        <div class="pay-row"><span>🔥🔥🔥</span><span>10x — "GPU on fire, but so are your winnings"</span></div>
+        <div class="pay-row"><span>💀💀💀</span><span>15x — "Skynet jackpot! (don't worry, it's a hoax)"</span></div>
+        <div class="pay-row"><span>🐛🐛🐛</span><span>6x — "Feature, not a bug"</span></div>
+        <div class="pay-row"><span>Any pair</span><span>2x — "Almost intelligent"</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

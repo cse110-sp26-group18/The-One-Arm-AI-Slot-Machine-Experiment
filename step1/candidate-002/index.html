@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Token Slots</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cabinet">
+    <header class="marquee">
+      <span>INFINITE TOKENS</span>
+      <span class="sub">where every spin costs you and rewards you equally</span>
+    </header>
+
+    <div class="balance-bar">
+      <div class="balance-item">
+        <span class="label">TOKEN WALLET</span>
+        <span class="value" id="balance">1000</span>
+        <span class="unit">ctx tokens</span>
+      </div>
+      <div class="balance-item highlight">
+        <span class="label">NET GAIN</span>
+        <span class="value" id="net-gain">0</span>
+        <span class="unit">tokens</span>
+      </div>
+      <div class="balance-item">
+        <span class="label">SPINS</span>
+        <span class="value" id="spins">0</span>
+      </div>
+    </div>
+
+    <div class="reels-container">
+      <div class="reel-window">
+        <div class="reel" id="reel-0">
+          <div class="reel-strip" id="strip-0"></div>
+        </div>
+      </div>
+      <div class="reel-window">
+        <div class="reel" id="reel-1">
+          <div class="reel-strip" id="strip-1"></div>
+        </div>
+      </div>
+      <div class="reel-window">
+        <div class="reel" id="reel-2">
+          <div class="reel-strip" id="strip-2"></div>
+        </div>
+      </div>
+      <div class="payline"></div>
+    </div>
+
+    <div class="controls">
+      <div class="bet-section">
+        <label class="bet-label">TOKENS / SPIN</label>
+        <div class="bet-buttons">
+          <button class="bet-btn" data-bet="10">10</button>
+          <button class="bet-btn active" data-bet="50">50</button>
+          <button class="bet-btn" data-bet="100">100</button>
+          <button class="bet-btn" data-bet="250">250</button>
+        </div>
+      </div>
+      <button class="spin-btn" id="spin-btn">
+        <span class="spin-label">SPIN</span>
+        <span class="spin-sub">(-<span id="bet-display">50</span> tokens)</span>
+      </button>
+    </div>
+
+    <div class="result-panel" id="result-panel">
+      <div class="result-text" id="result-text"></div>
+      <div class="result-tokens" id="result-tokens"></div>
+    </div>
+
+    <div class="paytable">
+      <div class="paytable-title">PAYTABLE &amp; LORE</div>
+      <div class="paytable-grid" id="paytable-grid"></div>
+    </div>
+
+    <div class="ticker" id="ticker">
+      <div class="ticker-inner" id="ticker-inner"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
