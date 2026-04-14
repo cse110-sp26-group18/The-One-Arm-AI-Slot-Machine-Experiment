@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated background particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="machine-wrapper">
+    <!-- The Lever (One Arm) -->
+    <div class="lever-assembly" id="lever-assembly">
+      <div class="lever-track">
+        <div class="lever-shaft" id="lever-shaft">
+          <div class="lever-ball" id="lever-ball"></div>
+        </div>
+      </div>
+      <div class="lever-base"></div>
+      <span class="lever-label">PULL ME</span>
+    </div>
+
+    <div class="machine">
+      <header class="machine__header">
+        <div class="machine__lights">
+          <span class="light light--1"></span>
+          <span class="light light--2"></span>
+          <span class="light light--3"></span>
+          <span class="light light--4"></span>
+          <span class="light light--5"></span>
+        </div>
+        <h1 class="machine__title">THE ONE-ARM AI</h1>
+        <p class="machine__subtitle">Where Your Tokens Go to Die (And Get Fine-Tuned Into Regret)</p>
+        <div class="machine__lights">
+          <span class="light light--5"></span>
+          <span class="light light--4"></span>
+          <span class="light light--3"></span>
+          <span class="light light--2"></span>
+          <span class="light light--1"></span>
+        </div>
+      </header>
+
+      <div class="machine__balance">
+        <span class="balance__label">Token Balance:</span>
+        <span class="balance__value" id="balance">1000</span>
+        <span class="balance__unit">tkns</span>
+        <button class="btn btn--add-tokens" id="add-tokens-btn" title="Buy more tokens (your wallet hates you)">
+          + Add Tokens
+        </button>
+      </div>
+
+      <!-- Spin Stats Bar -->
+      <div class="spin-stats">
+        <div class="stat">
+          <span class="stat__label">Spins</span>
+          <span class="stat__value" id="stat-spins">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Wins</span>
+          <span class="stat__value stat__value--win" id="stat-wins">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Losses</span>
+          <span class="stat__value stat__value--lose" id="stat-losses">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Win Rate</span>
+          <span class="stat__value" id="stat-winrate">0%</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Net P/L</span>
+          <span class="stat__value" id="stat-net">0</span>
+        </div>
+      </div>
+
+      <div class="reels" id="reels">
+        <div class="reel" id="reel-0">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-0"></div>
+          </div>
+        </div>
+        <div class="reel" id="reel-1">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-1"></div>
+          </div>
+        </div>
+        <div class="reel" id="reel-2">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result" id="result" aria-live="polite">
+        <p>Feed me your tokens, human. I promise I'll only waste most of them.</p>
+      </div>
+
+      <div class="controls">
+        <div class="bet-controls">
+          <button class="btn btn--bet" id="bet-down" aria-label="Decrease bet">−</button>
+          <div class="bet-display">
+            <span class="bet-display__label">BET</span>
+            <span class="bet-display__value" id="bet-value">10</span>
+          </div>
+          <button class="btn btn--bet" id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+
+        <button class="btn btn--spin" id="spin-btn">
+          <span class="btn__text">PULL THE LEVER</span>
+        </button>
+      </div>
+
+      <div class="paytable">
+        <h2 class="paytable__title">Payout Table (Peer-Reviewed by a Hallucinating GPT-2)</h2>
+        <div class="paytable__grid">
+          <div class="paytable__row paytable__row--jackpot">
+            <span>🤖🤖🤖</span><span>AGI Achieved — 50x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🧠🧠🧠</span><span>Emergent Behavior — 30x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🔥🔥🔥</span><span>GPU Meltdown — 25x</span>
+          </div>
+          <div class="paytable__row">
+            <span>💎💎💎</span><span>Series B Funding — 20x</span>
+          </div>
+          <div class="paytable__row">
+            <span>📊📊📊</span><span>Benchmark Fraud — 15x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🎲🎲🎲</span><span>Stochastic Parrot — 10x</span>
+          </div>
+          <div class="paytable__row">
+            <span>Any Pair</span><span>Partial Match — 2x</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="history">
+        <h2 class="history__title">Audit Log (Definitely Not Training Data)</h2>
+        <div class="history__list" id="history-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Token Purchase Modal -->
+  <div class="modal-overlay" id="token-modal" hidden>
+    <div class="modal">
+      <h2 class="modal__title">Token Dispensary</h2>
+      <p class="modal__subtitle">Because you clearly haven't learned your lesson.</p>
+      <div class="modal__options">
+        <button class="btn btn--token-option" data-amount="100">
+          <span class="token-amount">+100</span>
+          <span class="token-label">The "I Can Quit Anytime"</span>
+        </button>
+        <button class="btn btn--token-option" data-amount="500">
+          <span class="token-amount">+500</span>
+          <span class="token-label">The "Double Down on Delusion"</span>
+        </button>
+        <button class="btn btn--token-option" data-amount="1000">
+          <span class="token-amount">+1000</span>
+          <span class="token-label">The "Full Degen"</span>
+        </button>
+        <button class="btn btn--token-option" data-amount="5000">
+          <span class="token-amount">+5000</span>
+          <span class="token-label">The "Sell My GPU" Special</span>
+        </button>
+      </div>
+      <button class="btn btn--modal-close" id="modal-close">Nevermind, I Choose Dignity</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
