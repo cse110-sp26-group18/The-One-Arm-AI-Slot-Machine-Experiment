@@ -37,4 +37,5 @@ runs_in_browser: Yes
 # Drift / anomaly observations / Insights
 
 - Refinement successfully reduced chaos while keeping vibrancy — fewer particles, smaller lights, shorter messages, but same color palette and glow effects
-- Custom token input is a good UX improvement over preset-only options
+- Custom token input is a good UX improvement over preset-only options. Also, automatically adjusts bet if current bet is lower than tokens available.
+
