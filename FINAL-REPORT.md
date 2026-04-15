@@ -125,13 +125,7 @@ We chose **047**.
 > “Fix the music, make the background more colorful and brighter, give the ultimate casino vibe. When it comes to the actual code files, produce an actual documentation file describing existing features and contain instructions on how to add new features and test them. Add more descriptive comments in the `.js` file.”
 
 ### Final observations on 047
-
-- Background is lighter and cute.
-- Music works, but it feels more like a constant sound effect and the volume is very low.
-- The documentation is descriptive but very wordy.
-- It is organized in a structured style, but the wordy text sounds AI-generated and would need to be humanized.
-- Similarly, the inline comments are satisfactory, but would also need to be humanized.
-- The documentation was inefficient because it added a lot more lines of comments while barely any new features were added.
+Background is lighter and cute. Music works, but it feels more like a constant sound effect and the volume is very low. The documentation is descriptive but very wordy. It is organized in a structured style, but the wordy text sounds AI-generated and would need to be humanized. Similarly, the inline comments are satisfactory, but would also need to be humanized. The documentation was inefficient because it added a lot more lines of comments while barely any new features were added.
 
 ---
 
