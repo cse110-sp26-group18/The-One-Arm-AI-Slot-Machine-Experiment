@@ -1,0 +1,1 @@
+Add gambling music, more casino vibe lights. In the html, js, and css files, add descriptive and concise comments for documentation purposes.
