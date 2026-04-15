@@ -1,9 +1,7 @@
 ---
 run_id: 001
-
 timestamp_start: 17:21:34
 timestamp_end: 17:24:20
-
 model and version string: claude-opus-4-6
 thinking_level: high
 harness: claude-code-vscode-extension
@@ -14,11 +12,9 @@ tokens_total: 92163
 wall_clock_seconds: 2m 56s
 recorded_seconds: 1m 45s
 files_produced_count: 3
-
-lines_of_code_total: 664
-runs_in_browser: No
-
-
+lines_of_code_total: 400
+runs_in_browser: yes
+---
 
 # Files produced
 

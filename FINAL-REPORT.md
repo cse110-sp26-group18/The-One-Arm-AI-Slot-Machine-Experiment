@@ -1,15 +1,19 @@
+<<<<<<< Updated upstream
 # 🧪 AI Slot Machine Experiment
 
 [Jump to conclusion](#conclusion)
 
 ## Evaluation Rubric
+=======
+# AI Slot Machine Experiment — Evaluation Rubric
+>>>>>>> Stashed changes
 
 This rubric is used to evaluate each generated candidate across functionality, user experience, and code quality.  
 All scoring is done on a **1–5 scale** unless otherwise noted.
 
 ---
 
-## 📊 1. Metadata (Logging Only)
+## 1. Metadata (Logging Only)
 
 | Field | Description |
 |------|------------|
