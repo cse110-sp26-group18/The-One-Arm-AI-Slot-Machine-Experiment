@@ -10,7 +10,7 @@
 
 /* Design token variables — all colors, glows, and theme values */
 :root {
-  --bg-dark: #1a0033;
+  --bg-dark: #080816;
   --bg-machine: #0f0f28;
   --bg-panel: #141435;
   --accent-neon: #00f5d4;
@@ -18,24 +18,16 @@
   --accent-gold: #ffd60a;
   --accent-purple: #7209b7;
   --text-primary: #e0e0ff;
-  --text-muted: #9999cc;
+  --text-muted: #7777aa;
   --reel-bg: #0a0a1a;
   --glow-cyan: rgba(0, 245, 212, 0.5);
   --glow-pink: rgba(247, 37, 133, 0.4);
 }
 
-/* Vibrant multi-color casino backdrop — animated radial gradients cycling
-   through pink/gold/purple/teal to give an ultimate casino neon atmosphere. */
+/* Full-viewport dark background with centered content */
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background:
-    radial-gradient(ellipse at 20% 10%, rgba(247, 37, 133, 0.55), transparent 55%),
-    radial-gradient(ellipse at 80% 15%, rgba(255, 214, 10, 0.45), transparent 55%),
-    radial-gradient(ellipse at 15% 85%, rgba(0, 245, 212, 0.45), transparent 55%),
-    radial-gradient(ellipse at 85% 90%, rgba(114, 9, 183, 0.6), transparent 55%),
-    linear-gradient(135deg, #2a0845 0%, #4b0082 40%, #800060 70%, #2a0845 100%);
-  background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 300% 300%;
-  animation: casinoBgShift 16s ease-in-out infinite;
+  background: var(--bg-dark);
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
@@ -45,19 +37,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Slow drifting gradient shift — keeps the background alive without flicker */
-@keyframes casinoBgShift {
-  0%, 100% {
-    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 0% 50%;
-  }
-  50% {
-    background-position: 30% 20%, 70% 30%, 30% 80%, 70% 70%, 100% 50%;
-  }
-}
-
 /* ── Canvas Background ───────────────────────────── */
-/* Fixed full-screen canvas for floating emoji particle effects.
-   Sits above the gradient body bg but below the slot machine. */
+/* Fixed full-screen canvas for floating emoji particle effects */
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -66,37 +47,6 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-}
-
-/* Spotlight rays sweeping across the page — pure CSS conic gradient,
-   gives a real "casino floor" rotating-light vibe behind the machine. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: -50%;
-  background:
-    conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      rgba(255, 214, 10, 0.08) 20deg,
-      transparent 40deg,
-      rgba(247, 37, 133, 0.08) 80deg,
-      transparent 100deg,
-      rgba(0, 245, 212, 0.08) 160deg,
-      transparent 180deg,
-      rgba(114, 9, 183, 0.1) 240deg,
-      transparent 260deg,
-      rgba(255, 214, 10, 0.08) 320deg,
-      transparent 340deg
-    );
-  z-index: 0;
-  pointer-events: none;
-  animation: spotlightRotate 30s linear infinite;
-}
-
-@keyframes spotlightRotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
 }
 
 /* ── Wrapper ─────────────────────────────────────── */
@@ -109,20 +59,19 @@ body::before {
 }
 
 /* ── Machine ─────────────────────────────────────── */
-/* Main slot machine body — darker than the colorful backdrop so it pops,
-   wrapped in a strong neon border glow for the casino-floor look. */
+/* Main slot machine body with gradient background and neon border glow */
 .slot-machine {
   position: relative;
   width: 100%;
   background: linear-gradient(180deg, #141432 0%, var(--bg-machine) 30%, #0c0c24 100%);
-  border: 2px solid rgba(0, 245, 212, 0.55);
+  border: 2px solid rgba(0, 245, 212, 0.4);
   border-radius: 20px;
   padding: 0 20px 24px;
   box-shadow:
-    0 0 25px rgba(0, 245, 212, 0.35),
-    0 0 60px rgba(247, 37, 133, 0.25),
-    0 0 120px rgba(114, 9, 183, 0.3),
-    inset 0 0 60px rgba(0, 0, 0, 0.45);
+    0 0 15px rgba(0, 245, 212, 0.15),
+    0 0 40px rgba(0, 245, 212, 0.07),
+    0 0 80px rgba(114, 9, 183, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Side Lights ─────────────────────────────────── */
@@ -755,30 +704,23 @@ body::before {
   font-weight: 600;
   padding: 6px 16px;
   border-radius: 20px;
-  border: 1px solid rgba(0, 245, 212, 0.25);
+  border: 1px solid rgba(0, 245, 212, 0.15);
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.2s;
 }
 
 .btn-music:hover {
-  border-color: rgba(0, 245, 212, 0.45);
-  background: rgba(0, 245, 212, 0.08);
+  border-color: rgba(0, 245, 212, 0.35);
+  background: rgba(0, 245, 212, 0.05);
   color: var(--accent-neon);
 }
 
-/* Active (playing) state — gold glow, pulsing equalizer-like animation */
+/* Active (playing) state styling */
 .btn-music.playing {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-  background: rgba(255, 214, 10, 0.08);
-  box-shadow: 0 0 14px rgba(255, 214, 10, 0.35), inset 0 0 6px rgba(255, 214, 10, 0.15);
-  animation: musicPulse 1.4s ease-in-out infinite;
-}
-
-@keyframes musicPulse {
-  0%, 100% { box-shadow: 0 0 14px rgba(255, 214, 10, 0.35), inset 0 0 6px rgba(255, 214, 10, 0.15); }
-  50%      { box-shadow: 0 0 22px rgba(255, 214, 10, 0.55), inset 0 0 10px rgba(255, 214, 10, 0.25); }
+  border-color: rgba(0, 245, 212, 0.4);
+  color: var(--accent-neon);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.1);
 }
 
 /* ── Stats Bar ───────────────────────────────────── */
@@ -1211,8 +1153,8 @@ body::before {
 }
 
 @keyframes borderGlow {
-  0%, 100% { box-shadow: 0 0 25px rgba(0, 245, 212, 0.35), 0 0 60px rgba(247, 37, 133, 0.25), 0 0 120px rgba(114, 9, 183, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.45); }
-  50%      { box-shadow: 0 0 35px rgba(0, 245, 212, 0.5),  0 0 80px rgba(247, 37, 133, 0.4),  0 0 150px rgba(114, 9, 183, 0.45), inset 0 0 60px rgba(0, 0, 0, 0.45); }
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 245, 212, 0.15), 0 0 40px rgba(0, 245, 212, 0.07), 0 0 80px rgba(114, 9, 183, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.3); }
+  50%      { box-shadow: 0 0 20px rgba(0, 245, 212, 0.25), 0 0 50px rgba(0, 245, 212, 0.12), 0 0 100px rgba(114, 9, 183, 0.18), inset 0 0 60px rgba(0, 0, 0, 0.3); }
 }
 
 /* ── Responsive ──────────────────────────────────── */

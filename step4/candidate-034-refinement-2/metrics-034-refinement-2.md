@@ -24,13 +24,14 @@ runs_in_browser: Yes
 
 # App quality notes
 
-- Refinement round: slimmed machine width (380px fixed), cleaner header with emoji title, reduced text verbosity across paytable/history/messages
-- Added floating token animations (green float-up on win, red fall-down on loss) with balance bounce effect
-- Token modal now has custom number input + preset quick-pick buttons (+100/+500/+1K/+5K)
+- Refinement round: Add gambling music, more casino vibe lights. 
+- There was more animations added to the slot machine with mroe colors and more dynamic background
+- There was the addition of the music button but it doesn't allow for music to be added
 
 # Code quality notes
 
-- Clean HTML/CSS/JS separation maintained across refinement
+- Refinemenet round: In the html, js, and css files, add descriptive and concise comments for documentation purposes.
+- For each file there was way more comments on the files each one being a bit more descriptive about what each function or what each variable was made for
 - Stats bar uses emoji icons + dividers for visual hierarchy instead of text-heavy labels
 - Background particles reduced (50→35) and connection lines removed to reduce visual noise
 
