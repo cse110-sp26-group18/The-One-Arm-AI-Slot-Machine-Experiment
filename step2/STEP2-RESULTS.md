@@ -42,7 +42,9 @@ This section documents the refinement process from five candidates down to the f
 - Displays net profit/loss (P/L), providing useful gameplay feedback  
 
 ---
+
 ## Based on the Rubric 
+
 ## Plan 034
 
 | Category | Score (1–5) | Description |
@@ -131,8 +133,8 @@ This section documents the refinement process from five candidates down to the f
 | Readability | 3 | Basic clarity, not refined |
 | TOTAL SCORE | 32 | Sum all scores |
 
-
 ---
+
 ## Final Selection
 
 The following plans were selected to move forward after the entire group voted for their top 3 favorites:
