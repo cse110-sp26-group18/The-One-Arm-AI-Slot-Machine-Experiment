@@ -60,22 +60,17 @@
     100% { opacity: 1; }
   }
 
-  /* Scrolling grid lines */
+  /* Subtle grid lines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     background:
-      linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridScroll 25s linear infinite;
+      linear-gradient(rgba(57,255,20,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.015) 1px, transparent 1px);
+    background-size: 90px 90px;
     z-index: 0;
     pointer-events: none;
-  }
-
-  @keyframes gridScroll {
-    to { background-position: 60px 60px; }
   }
 
   /* === MAIN LAYOUT: machine + lever side by side === */
@@ -91,13 +86,13 @@
     background: linear-gradient(145deg, #1a1a3e, #0d0d2b);
     border: 3px solid var(--neon-pink);
     border-radius: 24px 0 0 24px;
-    padding: 30px 36px 36px;
+    padding: 22px 24px 26px;
     box-shadow:
-      0 0 30px rgba(255,110,199,0.3),
-      0 0 60px rgba(255,110,199,0.1),
+      0 0 30px rgba(255,110,199,0.25),
+      0 0 60px rgba(255,110,199,0.08),
       inset 0 0 30px rgba(0,0,0,0.5);
-    max-width: 520px;
-    width: 95vw;
+    width: 380px;
+    flex-shrink: 0;
   }
 
   /* === LEVER PANEL (right side) === */
@@ -190,44 +185,44 @@
   /* Title */
   .title {
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .title h1 {
     font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
+    font-size: 11px;
     color: var(--neon-green);
-    text-shadow: 0 0 10px var(--neon-green), 0 0 30px var(--neon-green);
-    line-height: 1.6;
+    text-shadow: 0 0 10px var(--neon-green), 0 0 22px rgba(57,255,20,0.5);
     letter-spacing: 1px;
   }
 
-  .title .subtitle {
-    font-size: 10px;
-    color: var(--neon-pink);
-    text-shadow: 0 0 8px var(--neon-pink);
-    margin-top: 4px;
-    font-family: 'Press Start 2P', monospace;
+  .title .icon {
+    font-size: 20px;
+    filter: drop-shadow(0 0 6px var(--neon-pink));
   }
 
   /* Token balance row */
   .balance-bar {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: rgba(0,0,0,0.4);
     border: 1px solid var(--neon-blue);
     border-radius: 12px;
-    padding: 10px 18px;
-    margin: 14px 0;
+    padding: 10px 16px;
+    margin: 12px 0 10px;
     box-shadow: 0 0 12px rgba(0,212,255,0.15);
   }
 
   .balance-label {
-    font-size: 11px;
-    color: var(--neon-blue);
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 16px;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px var(--neon-yellow));
   }
 
   .balance-right {
@@ -250,17 +245,21 @@
 
   .add-tokens-btn {
     font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 6px 12px;
+    font-size: 18px;
+    font-weight: 900;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
     border: 2px solid var(--neon-green);
-    border-radius: 8px;
+    border-radius: 50%;
     background: rgba(57,255,20,0.1);
     color: var(--neon-green);
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 
   .add-tokens-btn:hover {
@@ -299,10 +298,10 @@
   }
 
   .reel-container {
-    width: 120px;
-    height: 120px;
+    width: 92px;
+    height: 100px;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 10px;
     background: var(--slot-bg);
     border: 2px solid #2a2a5e;
     position: relative;
@@ -317,12 +316,12 @@
   }
 
   .reel-symbol {
-    width: 120px;
-    height: 120px;
+    width: 92px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 56px;
+    font-size: 46px;
     flex-shrink: 0;
     user-select: none;
   }
@@ -616,50 +615,131 @@
 
   .paytable {
     display: none;
-    margin-top: 12px;
+    margin-top: 10px;
     background: rgba(0,0,0,0.4);
     border: 1px solid #333;
     border-radius: 10px;
-    padding: 14px;
-    font-size: 12px;
+    padding: 12px;
   }
 
-  .paytable.open { display: block; }
+  .paytable.open { display: grid; }
 
-  .paytable h3 {
+  .paytable {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .paytable-tile {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2a5e;
+    border-radius: 8px;
+    padding: 8px 4px 6px;
     text-align: center;
-    font-size: 11px;
-    color: var(--neon-pink);
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    font-family: 'Press Start 2P', monospace;
   }
 
-  .paytable-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    border-bottom: 1px solid #1a1a3e;
+  .paytable-tile .symbols {
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 1px;
   }
 
-  .paytable-row:last-child { border-bottom: none; }
-
-  .paytable-symbols {
-    font-size: 22px;
-  }
-
-  .paytable-payout {
+  .paytable-tile .mult {
+    display: block;
+    margin-top: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
     color: var(--neon-yellow);
-    font-weight: 700;
-    font-size: 12px;
+    text-shadow: 0 0 6px rgba(255,230,0,0.5);
   }
 
-  .paytable-desc {
-    color: #888;
-    font-size: 10px;
-    flex: 1;
+  .paytable-tile.match2 .mult { color: var(--neon-blue); text-shadow: 0 0 6px rgba(0,212,255,0.5); }
+
+  /* === Always-visible stats bar === */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 0 0 12px;
+  }
+
+  .stat-card {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid #2a2a5e;
+    border-radius: 10px;
+    padding: 6px 4px 5px;
     text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .stat-icon {
+    font-size: 14px;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-value {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 3px;
+    line-height: 1;
+  }
+
+  .stat-card.spins { border-color: rgba(0,212,255,0.4); }
+  .stat-card.spins .stat-value { color: var(--neon-blue); }
+  .stat-card.won { border-color: rgba(57,255,20,0.4); }
+  .stat-card.won .stat-value { color: var(--neon-green); }
+  .stat-card.lost { border-color: rgba(255,85,85,0.4); }
+  .stat-card.lost .stat-value { color: #ff5555; }
+  .stat-card.net { border-color: rgba(255,230,0,0.4); }
+  .stat-card.net .stat-value { color: var(--neon-yellow); }
+  .stat-card.net .stat-value.negative { color: #ff5555; }
+
+  /* === Floating token delta animation === */
+  .token-float {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    pointer-events: none;
+    z-index: 5;
+    animation: tokenFloat 1.4s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+  }
+
+  .token-float.win {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green), 0 0 18px rgba(57,255,20,0.6);
+  }
+
+  .token-float.lose {
+    color: #ff5555;
+    text-shadow: 0 0 10px #ff5555, 0 0 18px rgba(255,85,85,0.5);
+  }
+
+  @keyframes tokenFloat {
+    0%   { opacity: 0; transform: translateY(-50%) scale(0.7); }
+    15%  { opacity: 1; transform: translateY(-90%) scale(1.15); }
+    100% { opacity: 0; transform: translateY(-220%) scale(0.95); }
+  }
+
+  /* Coin trail used during big wins */
+  .coin-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99;
+    font-size: 22px;
+    animation: coinFly 1.1s ease-out forwards;
+  }
+
+  @keyframes coinFly {
+    0%   { opacity: 0; transform: translate(0, 0) scale(0.6) rotate(0deg); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(360deg); }
   }
 
   /* Win particles */
@@ -756,32 +836,25 @@
     font-family: 'Press Start 2P', monospace;
     font-size: 12px;
     color: var(--neon-green);
-    margin-bottom: 6px;
+    margin-bottom: 14px;
     text-shadow: 0 0 8px var(--neon-green);
-  }
-
-  .modal .modal-subtitle {
-    font-size: 9px;
-    color: var(--neon-pink);
-    margin-bottom: 18px;
-    font-family: 'Press Start 2P', monospace;
   }
 
   .token-options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
   }
 
   .token-option {
-    padding: 14px 8px;
+    padding: 12px 4px;
     border: 2px solid #333;
-    border-radius: 12px;
+    border-radius: 10px;
     background: rgba(0,0,0,0.3);
     color: var(--neon-yellow);
     font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
@@ -793,12 +866,62 @@
     box-shadow: 0 0 12px rgba(57,255,20,0.2);
   }
 
-  .token-option span {
-    display: block;
-    font-size: 8px;
-    color: #666;
-    margin-top: 4px;
-    font-family: 'Press Start 2P', monospace;
+  .custom-amount-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .custom-amount-input {
+    flex: 1;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--neon-yellow);
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
+  }
+
+  .custom-amount-input::-webkit-outer-spin-button,
+  .custom-amount-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .custom-amount-input:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 12px rgba(57,255,20,0.3);
+  }
+
+  .custom-amount-input::placeholder {
+    color: #555;
+    font-size: 13px;
+  }
+
+  .custom-amount-btn {
+    padding: 0 18px;
+    border: 2px solid var(--neon-green);
+    border-radius: 10px;
+    background: rgba(57,255,20,0.1);
+    color: var(--neon-green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .custom-amount-btn:hover {
+    background: rgba(57,255,20,0.25);
+    box-shadow: 0 0 12px rgba(57,255,20,0.4);
   }
 
   .modal-close {
@@ -831,13 +954,12 @@
   }
 
   /* Responsive */
-  @media (max-width: 580px) {
-    .machine { padding: 20px 16px 24px; border-radius: 18px; }
+  @media (max-width: 500px) {
+    .machine { padding: 18px 16px 22px; width: 100%; max-width: 360px; border-radius: 24px; }
     .lever-panel { display: none; }
-    .machine { border-radius: 24px; }
-    .reel-container { width: 90px; height: 90px; }
-    .reel-symbol { width: 90px; height: 90px; font-size: 42px; }
-    .title h1 { font-size: 11px; }
+    .reel-container { width: 84px; height: 92px; }
+    .reel-symbol { width: 84px; height: 92px; font-size: 40px; }
+    .title h1 { font-size: 10px; }
     .spin-btn { font-size: 13px; padding: 14px; }
   }
 </style>
@@ -850,29 +972,52 @@
 <div class="modal-overlay" id="tokenModal">
   <div class="modal">
     <h2>INSERT TOKENS</h2>
-    <div class="modal-subtitle">~ the AI demands tribute ~</div>
     <div class="token-options">
-      <button class="token-option" data-amount="100">+100<span>"a small bribe"</span></button>
-      <button class="token-option" data-amount="500">+500<span>"a generous gift"</span></button>
-      <button class="token-option" data-amount="1000">+1,000<span>"selling a kidney"</span></button>
-      <button class="token-option" data-amount="5000">+5,000<span>"second mortgage"</span></button>
+      <button class="token-option" data-amount="100">+100</button>
+      <button class="token-option" data-amount="500">+500</button>
+      <button class="token-option" data-amount="1000">+1K</button>
+      <button class="token-option" data-amount="5000">+5K</button>
     </div>
-    <button class="modal-close" id="modalClose">Nevermind, I Like Poverty</button>
+    <div class="custom-amount-row">
+      <input type="number" class="custom-amount-input" id="customAmountInput" placeholder="Custom amount" min="1" max="9999999">
+      <button class="custom-amount-btn" id="customAmountBtn">Add</button>
+    </div>
+    <button class="modal-close" id="modalClose">Cancel</button>
   </div>
 </div>
 
 <div class="machine-wrapper">
   <div class="machine" id="machine">
     <div class="title">
-      <h1>THE ONE-ARM<br>AI SLOT MACHINE</h1>
-      <div class="subtitle">~ burning tokens since 2024 ~</div>
+      <span class="icon">&#x1F3B0;</span>
+      <h1>AI SLOT MACHINE</h1>
+      <span class="icon">&#x1F916;</span>
     </div>
 
-    <div class="balance-bar">
-      <span class="balance-label">Tokens</span>
+    <div class="balance-bar" id="balanceBar">
+      <span class="balance-label">&#x1F4B0;</span>
       <div class="balance-right">
         <span class="balance-value" id="balanceDisplay">1000</span>
-        <button class="add-tokens-btn" id="addTokensBtn">+ Add</button>
+        <button class="add-tokens-btn" id="addTokensBtn">+</button>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-card spins">
+        <span class="stat-icon">&#x1F3B2;</span>
+        <span class="stat-value" id="statSpins">0</span>
+      </div>
+      <div class="stat-card won">
+        <span class="stat-icon">&#x1F4C8;</span>
+        <span class="stat-value" id="statWon">0</span>
+      </div>
+      <div class="stat-card lost">
+        <span class="stat-icon">&#x1F4C9;</span>
+        <span class="stat-value" id="statLost">0</span>
+      </div>
+      <div class="stat-card net">
+        <span class="stat-icon">&#x2696;&#xFE0F;</span>
+        <span class="stat-value" id="statNet">0</span>
       </div>
     </div>
 
@@ -903,88 +1048,20 @@
       <p class="info">Insert tokens and pull the lever...</p>
     </div>
 
-    <!-- Spin History -->
-    <div class="history-section">
-      <div class="history-toggle">
-        <button id="historyBtn">Spin History</button>
-      </div>
-      <div class="history-panel" id="historyPanel">
-        <h3>TRAINING LOG</h3>
-        <div class="history-stats" id="historyStats">
-          <div class="history-stat">
-            <span class="history-stat-label">Spins</span>
-            <span class="history-stat-value blue" id="statSpins">0</span>
-          </div>
-          <div class="history-stat">
-            <span class="history-stat-label">Won</span>
-            <span class="history-stat-value green" id="statWon">0</span>
-          </div>
-          <div class="history-stat">
-            <span class="history-stat-label">Lost</span>
-            <span class="history-stat-value red" id="statLost">0</span>
-          </div>
-          <div class="history-stat">
-            <span class="history-stat-label">Net</span>
-            <span class="history-stat-value yellow" id="statNet">0</span>
-          </div>
-        </div>
-        <ul class="history-list" id="historyList">
-          <li class="history-empty">No spins yet. The model awaits your tokens...</li>
-        </ul>
-      </div>
-    </div>
-
     <div class="paytable-toggle">
       <button id="paytableBtn">Pay Table</button>
     </div>
 
     <div class="paytable" id="paytable">
-      <h3>PAYOUTS</h3>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F916;&#x1F916;&#x1F916;</span>
-        <span class="paytable-desc">Singularity</span>
-        <span class="paytable-payout">x50</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F9E0;&#x1F9E0;&#x1F9E0;</span>
-        <span class="paytable-desc">AGI Achieved</span>
-        <span class="paytable-payout">x25</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F525;&#x1F525;&#x1F525;</span>
-        <span class="paytable-desc">GPU Meltdown</span>
-        <span class="paytable-payout">x15</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F4B0;&#x1F4B0;&#x1F4B0;</span>
-        <span class="paytable-desc">VC Funding</span>
-        <span class="paytable-payout">x10</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F40D;&#x1F40D;&#x1F40D;</span>
-        <span class="paytable-desc">Python Script</span>
-        <span class="paytable-payout">x8</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x26A1;&#x26A1;&#x26A1;</span>
-        <span class="paytable-desc">Power Bill</span>
-        <span class="paytable-payout">x5</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F3B0;&#x1F3B0;&#x1F3B0;</span>
-        <span class="paytable-desc">Recursive Slot</span>
-        <span class="paytable-payout">x5</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">&#x1F440;&#x1F440;&#x1F440;</span>
-        <span class="paytable-desc">Data Scraping</span>
-        <span class="paytable-payout">x3</span>
-      </div>
-      <div class="paytable-row">
-        <span class="paytable-symbols">XX?</span>
-        <span class="paytable-desc">Any 2 Match</span>
-        <span class="paytable-payout">x2</span>
-      </div>
+      <div class="paytable-tile"><span class="symbols">&#x1F916;&#x1F916;&#x1F916;</span><span class="mult">x50</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F9E0;&#x1F9E0;&#x1F9E0;</span><span class="mult">x25</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F525;&#x1F525;&#x1F525;</span><span class="mult">x15</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F4B0;&#x1F4B0;&#x1F4B0;</span><span class="mult">x10</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F40D;&#x1F40D;&#x1F40D;</span><span class="mult">x8</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x26A1;&#x26A1;&#x26A1;</span><span class="mult">x5</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F3B0;&#x1F3B0;&#x1F3B0;</span><span class="mult">x5</span></div>
+      <div class="paytable-tile"><span class="symbols">&#x1F440;&#x1F440;&#x1F440;</span><span class="mult">x3</span></div>
+      <div class="paytable-tile match2"><span class="symbols">&#x2728;&#x2728;</span><span class="mult">x2</span></div>
     </div>
   </div>
 
@@ -1001,8 +1078,7 @@
 </div>
 
 <div class="footer">
-  WARNING: AI may hallucinate winnings<br>
-  Not responsible for lost tokens, sentience, or existential dread
+  &#x26A0;&#xFE0F; AI may hallucinate winnings
 </div>
 
 <!-- Audio (Web Audio API) -->
@@ -1072,7 +1148,7 @@ function sfxKaChing() {
   const ctx = canvas.getContext('2d');
   let W, H;
   const stars = [];
-  const STAR_COUNT = 120;
+  const STAR_COUNT = 60;
   const floatingEmojis = [];
 
   function resize() {
@@ -1093,21 +1169,21 @@ function sfxKaChing() {
     });
   }
 
-  // Occasionally spawn floating emojis
-  const BG_EMOJIS = ['\u{1F4B8}', '\u{1F916}', '\u{1F9E0}', '\u{1F525}', '\u{26A1}', '\u{1F3B0}', '\u{1F440}'];
+  // Subtle floating accents (rare, low opacity)
+  const BG_EMOJIS = ['\u{1F4B8}', '\u{1F3B0}'];
   setInterval(() => {
-    if (floatingEmojis.length < 6) {
+    if (floatingEmojis.length < 2) {
       floatingEmojis.push({
         x: Math.random() * W,
         y: H + 30,
         emoji: BG_EMOJIS[Math.floor(Math.random() * BG_EMOJIS.length)],
-        speed: Math.random() * 0.5 + 0.3,
+        speed: Math.random() * 0.3 + 0.2,
         wobble: Math.random() * Math.PI * 2,
-        opacity: 0.15 + Math.random() * 0.1,
-        size: 16 + Math.random() * 12
+        opacity: 0.06 + Math.random() * 0.04,
+        size: 14 + Math.random() * 8
       });
     }
-  }, 3000);
+  }, 6000);
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
@@ -1171,12 +1247,12 @@ let spinning = false;
 let totalSpins = 0;
 let totalWon = 0;
 let totalLost = 0;
-const spinHistory = [];
 
 const BET_STEPS = [5, 10, 25, 50, 100, 250];
 
 // === DOM ===
 const balanceDisplay = document.getElementById('balanceDisplay');
+const balanceBar = document.getElementById('balanceBar');
 const betDisplay = document.getElementById('betDisplay');
 const spinBtn = document.getElementById('spinBtn');
 const lever = document.getElementById('lever');
@@ -1185,12 +1261,11 @@ const machine = document.getElementById('machine');
 const bailoutBtn = document.getElementById('bailoutBtn');
 const paytableBtn = document.getElementById('paytableBtn');
 const paytable = document.getElementById('paytable');
-const historyBtn = document.getElementById('historyBtn');
-const historyPanel = document.getElementById('historyPanel');
-const historyList = document.getElementById('historyList');
 const addTokensBtn = document.getElementById('addTokensBtn');
 const tokenModal = document.getElementById('tokenModal');
 const modalClose = document.getElementById('modalClose');
+const customAmountInput = document.getElementById('customAmountInput');
+const customAmountBtn = document.getElementById('customAmountBtn');
 const reels = [
   document.getElementById('reel0'),
   document.getElementById('reel1'),
@@ -1309,9 +1384,41 @@ function populateReel(reelEl, count = 20) {
 reels.forEach(r => populateReel(r));
 
 // === CORE SPIN ===
-function updateBalance(newBal) {
+function spawnTokenFloat(delta) {
+  if (!delta) return;
+  const float = document.createElement('div');
+  float.className = 'token-float ' + (delta > 0 ? 'win' : 'lose');
+  float.textContent = (delta > 0 ? '+' : '') + delta.toLocaleString();
+  balanceBar.appendChild(float);
+  setTimeout(() => float.remove(), 1500);
+}
+
+function animateBalanceCount(from, to, duration = 600) {
+  const start = performance.now();
+  const diff = to - from;
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(from + diff * eased);
+    balanceDisplay.textContent = val.toLocaleString();
+    if (t < 1) requestAnimationFrame(step);
+    else balanceDisplay.textContent = to.toLocaleString();
+  }
+  requestAnimationFrame(step);
+}
+
+function updateBalance(newBal, opts = {}) {
+  const delta = newBal - balance;
+  const previous = balance;
   balance = newBal;
-  balanceDisplay.textContent = balance.toLocaleString();
+
+  if (opts.animate !== false && delta !== 0) {
+    animateBalanceCount(previous, newBal);
+    spawnTokenFloat(delta);
+  } else {
+    balanceDisplay.textContent = balance.toLocaleString();
+  }
+
   balanceDisplay.classList.add('bump');
   setTimeout(() => balanceDisplay.classList.remove('bump'), 200);
 
@@ -1346,50 +1453,15 @@ function spawnParticles(emoji, count = 12) {
   }
 }
 
-// === SPIN HISTORY ===
-function addToHistory(results, betAmount, winnings, isJackpot) {
-  const entry = {
-    num: totalSpins,
-    symbols: results.map(r => r.emoji).join(''),
-    bet: betAmount,
-    winnings: winnings,
-    net: winnings - betAmount,
-    isJackpot: isJackpot
-  };
-  spinHistory.unshift(entry);
-  if (spinHistory.length > 50) spinHistory.pop();
-  renderHistory();
-}
-
-function renderHistory() {
-  // Update stats
-  document.getElementById('statSpins').textContent = totalSpins;
+// === STATS ===
+function renderStats() {
+  document.getElementById('statSpins').textContent = totalSpins.toLocaleString();
   document.getElementById('statWon').textContent = totalWon.toLocaleString();
   document.getElementById('statLost').textContent = totalLost.toLocaleString();
   const net = totalWon - totalLost;
   const statNet = document.getElementById('statNet');
   statNet.textContent = (net >= 0 ? '+' : '') + net.toLocaleString();
-  statNet.className = 'history-stat-value ' + (net >= 0 ? 'green' : 'red');
-
-  // Render list
-  if (spinHistory.length === 0) {
-    historyList.innerHTML = '<li class="history-empty">No spins yet. The model awaits your tokens...</li>';
-    return;
-  }
-
-  historyList.innerHTML = spinHistory.map(e => {
-    let cls = 'lose-entry';
-    let text = `-${e.bet}`;
-    if (e.winnings > 0) {
-      cls = e.isJackpot ? 'jackpot-entry' : 'win-entry';
-      text = `+${e.winnings.toLocaleString()}`;
-    }
-    return `<li class="history-entry">
-      <span class="history-spin-num">#${e.num}</span>
-      <span class="history-symbols">${e.symbols}</span>
-      <span class="history-result ${cls}">${text}</span>
-    </li>`;
-  }).join('');
+  statNet.classList.toggle('negative', net < 0);
 }
 
 async function spin() {
@@ -1485,7 +1557,7 @@ function evaluateResult(results) {
       sfxWin();
       spawnParticles(a.emoji, 10);
     }
-    addToHistory(results, bet, winnings, isJackpot);
+    renderStats();
     return;
   }
 
@@ -1499,14 +1571,14 @@ function evaluateResult(results) {
 
     const matchEmoji = a.emoji === b.emoji ? a.emoji : c.emoji;
     spawnParticles(matchEmoji, 6);
-    addToHistory(results, bet, winnings, false);
+    renderStats();
     return;
   }
 
   // No match
   showMessage(randomFrom(LOSE_MESSAGES), "lose");
   sfxLose();
-  addToHistory(results, bet, 0, false);
+  renderStats();
 }
 
 // === BET CONTROLS ===
@@ -1560,21 +1632,35 @@ tokenModal.addEventListener('click', (e) => {
   if (e.target === tokenModal) tokenModal.classList.remove('open');
 });
 
+function addTokens(amount) {
+  if (!amount || amount <= 0 || !Number.isFinite(amount)) return;
+  amount = Math.min(Math.floor(amount), 9999999);
+  sfxKaChing();
+  updateBalance(balance + amount);
+  showMessage(randomFrom(ADD_TOKEN_MESSAGES), "info");
+  tokenModal.classList.remove('open');
+  spawnParticles('\u{1F4B8}', 8);
+}
+
 document.querySelectorAll('.token-option').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const amount = parseInt(btn.dataset.amount);
-    sfxKaChing();
-    updateBalance(balance + amount);
-    showMessage(randomFrom(ADD_TOKEN_MESSAGES), "info");
-    tokenModal.classList.remove('open');
-    spawnParticles('\u{1F4B8}', 8);
-  });
+  btn.addEventListener('click', () => addTokens(parseInt(btn.dataset.amount)));
 });
 
-// === HISTORY TOGGLE ===
-historyBtn.addEventListener('click', () => {
-  historyPanel.classList.toggle('open');
-  historyBtn.textContent = historyPanel.classList.contains('open') ? 'Hide History' : 'Spin History';
+customAmountBtn.addEventListener('click', () => {
+  const val = parseInt(customAmountInput.value, 10);
+  if (Number.isFinite(val) && val > 0) {
+    addTokens(val);
+    customAmountInput.value = '';
+  } else {
+    customAmountInput.focus();
+  }
+});
+
+customAmountInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    customAmountBtn.click();
+  }
 });
 
 // === PAYTABLE TOGGLE ===
@@ -1584,8 +1670,9 @@ paytableBtn.addEventListener('click', () => {
 });
 
 // === INIT ===
-updateBalance(1000);
-showMessage("Insert tokens and pull the lever...<br>Or press SPACE if you fear commitment!", "info");
+updateBalance(1000, { animate: false });
+renderStats();
+showMessage("Pull the lever or SMASH SPACE to spin!", "info");
 </script>
 
 </body>
