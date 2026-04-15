@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The One-Arm AI Slot Machine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Full-screen animated particle background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Container for floating token gain/loss animations -->
+  <div id="token-floats" class="token-floats"></div>
+
+  <!-- Music toggle button (top-right corner) -->
+  <button class="music-toggle" id="music-toggle" title="Toggle casino music">
+    <span class="music-toggle__icon" id="music-icon">🔇</span>
+    <span class="music-toggle__label">MUSIC</span>
+  </button>
+
+  <div class="machine-wrapper">
+    <!-- The Lever (One Arm) — clickable to trigger a spin -->
+    <div class="lever-assembly" id="lever-assembly">
+      <div class="lever-track">
+        <div class="lever-shaft" id="lever-shaft">
+          <div class="lever-ball" id="lever-ball"></div>
+        </div>
+      </div>
+      <div class="lever-base"></div>
+      <span class="lever-label">PULL</span>
+    </div>
+
+    <div class="machine">
+      <!-- Top marquee chasing light strip -->
+      <div class="marquee-strip marquee-strip--top" id="marquee-top"></div>
+
+      <!-- Header: decorative lights + title -->
+      <header class="machine__header">
+        <div class="machine__lights">
+          <span class="light light--1"></span>
+          <span class="light light--2"></span>
+          <span class="light light--3"></span>
+          <span class="light light--4"></span>
+          <span class="light light--5"></span>
+        </div>
+        <h1 class="machine__title">🎰 ONE-ARM AI</h1>
+        <div class="machine__lights">
+          <span class="light light--5"></span>
+          <span class="light light--4"></span>
+          <span class="light light--3"></span>
+          <span class="light light--2"></span>
+          <span class="light light--1"></span>
+        </div>
+      </header>
+
+      <!-- Token balance display with add-tokens button -->
+      <div class="machine__balance">
+        <span class="balance__icon">🪙</span>
+        <span class="balance__value" id="balance">1000</span>
+        <button class="btn btn--add-tokens" id="add-tokens-btn" title="Add tokens">+</button>
+      </div>
+
+      <!-- Live spin statistics bar -->
+      <div class="spin-stats">
+        <div class="stat">
+          <span class="stat__icon">🎰</span>
+          <span class="stat__value" id="stat-spins">0</span>
+          <span class="stat__label">Spins</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__icon">✅</span>
+          <span class="stat__value stat__value--win" id="stat-wins">0</span>
+          <span class="stat__label">Wins</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__icon">❌</span>
+          <span class="stat__value stat__value--lose" id="stat-losses">0</span>
+          <span class="stat__label">Losses</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__icon">📊</span>
+          <span class="stat__value" id="stat-winrate">0%</span>
+          <span class="stat__label">Rate</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__icon">💰</span>
+          <span class="stat__value" id="stat-net">0</span>
+          <span class="stat__label">Net</span>
+        </div>
+      </div>
+
+      <!-- Neon accent bar above the reels -->
+      <div class="neon-bar"></div>
+
+      <!-- Slot machine reels (3 columns) -->
+      <div class="reels" id="reels">
+        <div class="reel" id="reel-0">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-0"></div>
+          </div>
+        </div>
+        <div class="reel" id="reel-1">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-1"></div>
+          </div>
+        </div>
+        <div class="reel" id="reel-2">
+          <div class="reel__window">
+            <div class="reel__strip" id="strip-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neon accent bar below the reels -->
+      <div class="neon-bar"></div>
+
+      <!-- Spin outcome message (win/lose/broke) -->
+      <div class="result" id="result" aria-live="polite">
+        <p>Feed me your tokens, human.</p>
+      </div>
+
+      <!-- Bet controls and spin trigger button -->
+      <div class="controls">
+        <div class="bet-controls">
+          <button class="btn btn--bet" id="bet-down" aria-label="Decrease bet">−</button>
+          <div class="bet-display">
+            <span class="bet-display__label">BET</span>
+            <span class="bet-display__value" id="bet-value">10</span>
+          </div>
+          <button class="btn btn--bet" id="bet-up" aria-label="Increase bet">+</button>
+        </div>
+
+        <button class="btn btn--spin" id="spin-btn">
+          <span class="btn__text">PULL THE LEVER</span>
+        </button>
+      </div>
+
+      <!-- Payout multiplier reference table -->
+      <div class="paytable">
+        <h2 class="paytable__title">Payouts</h2>
+        <div class="paytable__grid">
+          <div class="paytable__row paytable__row--jackpot">
+            <span>🤖🤖🤖</span><span>50x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🧠🧠🧠</span><span>30x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🔥🔥🔥</span><span>25x</span>
+          </div>
+          <div class="paytable__row">
+            <span>💎💎💎</span><span>20x</span>
+          </div>
+          <div class="paytable__row">
+            <span>📊📊📊</span><span>15x</span>
+          </div>
+          <div class="paytable__row">
+            <span>🎲🎲🎲</span><span>10x</span>
+          </div>
+          <div class="paytable__row">
+            <span>Any Pair</span><span>2x</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable list of recent spin results -->
+      <div class="history">
+        <h2 class="history__title">History</h2>
+        <div class="history__list" id="history-list"></div>
+      </div>
+
+      <!-- Bottom marquee chasing light strip -->
+      <div class="marquee-strip marquee-strip--bottom" id="marquee-bottom"></div>
+
+      <!-- Decorative corner glow bulbs -->
+      <div class="corner-bulb corner-bulb--tl"></div>
+      <div class="corner-bulb corner-bulb--tr"></div>
+      <div class="corner-bulb corner-bulb--bl"></div>
+      <div class="corner-bulb corner-bulb--br"></div>
+
+      <!-- Side neon tube accents (left + right) -->
+      <div class="neon-tube neon-tube--left"></div>
+      <div class="neon-tube neon-tube--right"></div>
+    </div>
+  </div>
+
+  <!-- Token Purchase Modal overlay -->
+  <div class="modal-overlay" id="token-modal" hidden>
+    <div class="modal">
+      <h2 class="modal__title">🪙 Add Tokens</h2>
+      <!-- Custom amount input with confirm -->
+      <div class="modal__input-group">
+        <input type="number" id="token-input" class="modal__input" min="1" max="99999" value="500" placeholder="Enter amount">
+        <button class="btn btn--add-confirm" id="add-confirm-btn">Add</button>
+      </div>
+      <!-- Quick-add preset buttons -->
+      <div class="modal__presets">
+        <button class="btn btn--preset" data-amount="100">+100</button>
+        <button class="btn btn--preset" data-amount="500">+500</button>
+        <button class="btn btn--preset" data-amount="1000">+1K</button>
+        <button class="btn btn--preset" data-amount="5000">+5K</button>
+      </div>
+      <button class="btn btn--modal-close" id="modal-close">Cancel</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
