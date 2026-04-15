@@ -15,91 +15,63 @@
 
   var PAIR_MULTIPLIER = 2;
 
-  // ─── Snarky Messages (Expanded) ───
+  // ─── Snarky Messages ───
   var WIN_MESSAGES = [
     'The model got lucky. Don\'t let it go to its weights.',
     'Congratulations, you\'ve been positively reinforced.',
     'Your gradient just descended into profit!',
     'Even a hallucinating model is right sometimes.',
     'The loss function smiles upon you today.',
-    'You\'ve achieved token-level coherence. Impressive.',
     'RLHF says you deserve this. Probably.',
     'Your prompt engineering finally paid off.',
     'Plot twist: the AI accidentally helped you.',
-    'Consider this a rounding error in your favor.',
-    'The alignment researchers are very concerned right now.',
     'Achievement unlocked: Briefly Not Losing Money.',
-    'Don\'t celebrate too hard — the model is already planning its revenge.',
-    'Your winnings have been approved by our ethics committee (just kidding, we don\'t have one).',
   ];
 
   var LOSE_MESSAGES = [
     'Your tokens have been added to the training corpus.',
-    'Context window exceeded. Your luck has been truncated.',
-    'The attention mechanism wasn\'t paying attention to you.',
-    'Your tokens joined a rival startup\'s pre-training run.',
-    'Model says: "I\'m sorry, I can\'t generate wins for you."',
-    'Your bet was flagged as low-quality data and discarded.',
-    'Temperature too high — output was garbage. As usual.',
-    'Catastrophic forgetting: the machine forgot to pay you.',
-    'Your tokens were used to fine-tune a model that still can\'t code FizzBuzz.',
+    'Context window exceeded. Luck truncated.',
+    'The attention mechanism wasn\'t paying attention.',
+    'Model says: "I can\'t generate wins for you."',
+    'Temperature too high — output was garbage.',
+    'Catastrophic forgetting: it forgot to pay you.',
     'The safety filter blocked your winnings.',
     'Inference complete: you lose. Confidence: 99.7%.',
-    'Your tokens have been embedded in a 4096-dimensional void.',
-    'Overfitting to the losing distribution, I see.',
-    'Your bet was below the minimum viable context length.',
+    'Overfitting to the losing distribution.',
     'Chain-of-thought reasoning concludes: skill issue.',
-    'Your tokens are in a better place now. (My database.)',
-    'The AI thanks you for your generous donation to compute costs.',
-    'BREAKING: Local human outperformed by random number generator.',
-    'Your tokens have been redistributed according to Marxist gradient descent.',
-    'The machine learning model has learned one thing: you always lose.',
-    'Error 402: Payment received, fun not included.',
-    'Your luck has been quantized to the nearest zero.',
     'The transformer attended to every token except yours.',
-    'Backpropagation complete: you\'re propagating backwards financially.',
-    'Sam Altman personally thanks you for funding GPT-6.',
+    'Error 402: Payment received, fun not included.',
   ];
 
   var BROKE_MESSAGES = [
     'Token balance: 0. Just like an open-source model\'s revenue.',
-    'You\'ve been deprecated. Please submit a funding proposal.',
-    'Out of tokens. Try reducing your expectations to 4-bit quantization.',
+    'You\'ve been deprecated. Add more tokens.',
+    'Out of tokens. Try reducing expectations to 4-bit.',
     'Your account has been rate-limited to zero.',
-    'Bankrupt. The AI will now accept your dignity as payment.',
-    'Congratulations! You\'ve achieved financial singularity (everything collapsed into nothing).',
-    'Your balance is flatter than GPT-2\'s personality.',
-    'GAME OVER. Your tokens have been absorbed into the void. The void says thanks.',
+    'GAME OVER. The void says thanks.',
   ];
 
   var BAILOUT_MESSAGES = [
-    'Fine. Here\'s 100 tokens. The AI overlords are feeling generous today.',
-    'Bailout approved. Consider this your Series A of bad decisions.',
-    'The model has hallucinated 100 tokens into your account.',
-    'Tokens restored. Don\'t say AI never did anything for you.',
-    'Emergency RLHF applied: +100 tokens. Human preference: gambling.',
-    'The machine felt pity. Machines aren\'t supposed to feel. Look what you did.',
-    'Quantitative easing: AI edition. Here\'s some tokens, try not to cry.',
+    'Fine. Here\'s 100 tokens. Feeling generous today.',
+    'Bailout approved. Your Series A of bad decisions.',
+    'The model hallucinated 100 tokens into your account.',
+    'Emergency RLHF applied: +100 tokens.',
+    'The machine felt pity. Look what you did.',
   ];
 
   var SPINNING_MESSAGES = [
-    'Processing your tokens through the neural network...',
-    'Feeding your hopes into the transformer...',
+    'Processing tokens through the neural network...',
     'Running inference on your life choices...',
     'Calculating the optimal way to disappoint you...',
-    'Consulting 175 billion parameters about your fate...',
-    'Applying attention to everything except your bet...',
+    'Consulting 175 billion parameters...',
     'The model is thinking... (it\'s judging you)...',
-    'Tokenizing your dreams into subword units...',
   ];
 
   var ADD_TOKEN_MESSAGES = [
-    'More tokens? Your commitment to losing is truly inspiring.',
-    'The machine purrs with satisfaction. Fresh tokens detected.',
-    'Tokens added. Your financial advisor just felt a disturbance in the Force.',
-    'Thank you for feeding the machine. It was getting hungry.',
-    'Tokens received. The AI appreciates your continued sacrifice.',
-    'Ka-ching! The house always wins, but at least you\'re a loyal customer.',
+    'More tokens? Your commitment to losing is inspiring.',
+    'Fresh tokens detected. The machine purrs.',
+    'Tokens received. The AI appreciates your sacrifice.',
+    'Ka-ching! The house always wins.',
   ];
 
   // ─── State ───
@@ -151,6 +123,11 @@
   var tokenModal = document.getElementById('token-modal');
   var addTokensBtn = document.getElementById('add-tokens-btn');
   var modalCloseBtn = document.getElementById('modal-close');
+  var tokenInput = document.getElementById('token-input');
+  var addConfirmBtn = document.getElementById('add-confirm-btn');
+
+  // Token float container
+  var tokenFloats = document.getElementById('token-floats');
 
   // Background canvas
   var bgCanvas = document.getElementById('bg-canvas');
@@ -232,10 +209,34 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  // ─── Floating Token Animation ───
+  function spawnTokenFloat(amount, isWin) {
+    var balanceRect = balanceEl.getBoundingClientRect();
+    var el = document.createElement('div');
+    el.className = 'token-float token-float--' + (isWin ? 'win' : 'lose');
+    el.textContent = (isWin ? '+' : '−') + amount;
+
+    // Position near the balance display
+    var offsetX = (Math.random() - 0.5) * 40;
+    el.style.left = (balanceRect.left + balanceRect.width / 2 + offsetX) + 'px';
+    el.style.top = (balanceRect.top + (isWin ? -5 : balanceRect.height + 5)) + 'px';
+
+    tokenFloats.appendChild(el);
+
+    el.addEventListener('animationend', function () {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
   function updateBalance(newBalance) {
     balance = newBalance;
     balanceEl.textContent = balance;
     balanceEl.classList.toggle('is-low', balance <= 50 && balance > 0);
+
+    // Bounce animation
+    balanceEl.classList.remove('is-animating');
+    void balanceEl.offsetWidth; // force reflow
+    balanceEl.classList.add('is-animating');
   }
 
   function updateBetDisplay() {
@@ -406,7 +407,7 @@
   function enterBrokeState() {
     isBroke = true;
     setResult(randomFrom(BROKE_MESSAGES), 'broke');
-    setSpinButton('BEG THE AI FOR TOKENS', 'is-beg');
+    setSpinButton('BEG FOR TOKENS', 'is-beg');
   }
 
   function handleBailout() {
@@ -417,6 +418,7 @@
     setResult(randomFrom(BAILOUT_MESSAGES), 'win');
     setSpinButton('PULL THE LEVER');
     playWinSound();
+    spawnTokenFloat(BAILOUT_AMOUNT, true);
   }
 
   // ─── Lever Animation ───
@@ -462,6 +464,9 @@
     // Pick results
     var results = [randomSymbol(), randomSymbol(), randomSymbol()];
 
+    // Store the bet for this spin (in case it changes during animation)
+    var spinBet = bet;
+
     // Stagger reel animations
     var durations = [800, 1200, 1600];
 
@@ -472,21 +477,24 @@
     ]).then(function () {
       var outcome = evaluateSpin(results);
 
-      // Update stats (before addHistory so spin number is correct)
+      // Update stats
       updateStats(outcome);
 
       if (outcome.type === 'triple') {
         updateBalance(balance + outcome.winnings);
-        setResult(outcome.name + '! You win ' + outcome.winnings + ' tokens!', 'win');
+        setResult(outcome.name + '! +' + outcome.winnings + ' tokens!', 'win');
         reels.forEach(function (r) { r.classList.add('is-winner'); });
         playJackpotSound();
+        spawnTokenFloat(outcome.winnings, true);
       } else if (outcome.type === 'pair') {
         updateBalance(balance + outcome.winnings);
-        setResult(randomFrom(WIN_MESSAGES) + ' +' + outcome.winnings + ' tokens', 'win');
+        setResult(randomFrom(WIN_MESSAGES) + ' +' + outcome.winnings, 'win');
         playWinSound();
+        spawnTokenFloat(outcome.winnings, true);
       } else {
         setResult(randomFrom(LOSE_MESSAGES), 'lose');
         playLoseSound();
+        spawnTokenFloat(spinBet, false);
       }
 
       addHistory(results, outcome);
@@ -503,6 +511,9 @@
   // ─── Token Modal ───
   function openTokenModal() {
     tokenModal.hidden = false;
+    tokenInput.value = 500;
+    tokenInput.focus();
+    tokenInput.select();
   }
 
   function closeTokenModal() {
@@ -510,8 +521,12 @@
   }
 
   function addTokens(amount) {
+    amount = parseInt(amount, 10);
+    if (isNaN(amount) || amount < 1) return;
+    if (amount > 99999) amount = 99999;
     updateBalance(balance + amount);
     playCoinSound();
+    spawnTokenFloat(amount, true);
     if (isBroke) {
       isBroke = false;
       bet = MIN_BET;
@@ -526,7 +541,7 @@
   function initBackground() {
     var ctx = bgCanvas.getContext('2d');
     var particles = [];
-    var particleCount = 50;
+    var particleCount = 35;
 
     function resize() {
       bgCanvas.width = window.innerWidth;
@@ -536,50 +551,37 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // Create particles
     for (var i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * bgCanvas.width,
         y: Math.random() * bgCanvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 0.5,
-        alpha: Math.random() * 0.3 + 0.05,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.2 + 0.03,
         color: Math.random() > 0.5
-          ? '0, 229, 255'   // cyan
-          : '255, 215, 0',   // gold
+          ? '0, 229, 255'
+          : '255, 215, 0',
       });
     }
 
     function animate() {
       ctx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
-      // Draw gradient background
       var grad = ctx.createRadialGradient(
         bgCanvas.width * 0.2, 0, 0,
         bgCanvas.width * 0.2, 0, bgCanvas.width * 0.8
       );
-      grad.addColorStop(0, 'rgba(0, 229, 255, 0.03)');
+      grad.addColorStop(0, 'rgba(0, 229, 255, 0.02)');
       grad.addColorStop(1, 'transparent');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
 
-      var grad2 = ctx.createRadialGradient(
-        bgCanvas.width * 0.8, bgCanvas.height, 0,
-        bgCanvas.width * 0.8, bgCanvas.height, bgCanvas.width * 0.6
-      );
-      grad2.addColorStop(0, 'rgba(255, 215, 0, 0.02)');
-      grad2.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad2;
-      ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-      // Draw and update particles
       for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around
         if (p.x < 0) p.x = bgCanvas.width;
         if (p.x > bgCanvas.width) p.x = 0;
         if (p.y < 0) p.y = bgCanvas.height;
@@ -589,22 +591,6 @@
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(' + p.color + ', ' + p.alpha + ')';
         ctx.fill();
-      }
-
-      // Draw connection lines between nearby particles
-      for (var i = 0; i < particles.length; i++) {
-        for (var j = i + 1; j < particles.length; j++) {
-          var dx = particles[i].x - particles[j].x;
-          var dy = particles[i].y - particles[j].y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = 'rgba(0, 229, 255, ' + (0.03 * (1 - dist / 120)) + ')';
-            ctx.stroke();
-          }
-        }
       }
 
       requestAnimationFrame(animate);
@@ -647,10 +633,22 @@
     }
   });
 
-  // Token option buttons
-  var tokenOptionBtns = document.querySelectorAll('.btn--token-option');
-  for (var i = 0; i < tokenOptionBtns.length; i++) {
-    tokenOptionBtns[i].addEventListener('click', function () {
+  // Custom token input - confirm button
+  addConfirmBtn.addEventListener('click', function () {
+    addTokens(tokenInput.value);
+  });
+
+  // Custom token input - enter key
+  tokenInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      addTokens(tokenInput.value);
+    }
+  });
+
+  // Preset token buttons
+  var presetBtns = document.querySelectorAll('.btn--preset');
+  for (var i = 0; i < presetBtns.length; i++) {
+    presetBtns[i].addEventListener('click', function () {
       var amount = parseInt(this.getAttribute('data-amount'), 10);
       addTokens(amount);
     });
