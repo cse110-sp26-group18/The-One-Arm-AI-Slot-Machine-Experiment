@@ -19,7 +19,7 @@ lines_of_code_total: 680
 runs_in_browser: yes
 
 index.html
-script.js
+app.js
 styles.css
 
 # App quality notes
