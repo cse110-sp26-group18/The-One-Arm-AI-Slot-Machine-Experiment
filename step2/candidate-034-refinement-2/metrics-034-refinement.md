@@ -13,7 +13,7 @@ wall_clock_seconds: 243
 recorded_seconds: 
 files_produced_count: 0
 lines_of_code_total: 1678
-runs_in_browser: Yes
+runs_in_browser: No
 refinement_generation: 2
 ---
 

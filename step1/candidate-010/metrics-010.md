@@ -13,7 +13,7 @@ wall_clock_seconds: 124
 recorded_seconds: 145
 files_produced_count: 1
 lines_of_code_total: 805
-runs_in_browser: Yes
+runs_in_browser: No
 ---
 
 # Files produced
