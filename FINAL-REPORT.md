@@ -1,5 +1,7 @@
 # 🧪 AI Slot Machine Experiment
 
+[Jump to conclusion](#conclusion)
+
 ## Evaluation Rubric
 
 This rubric is used to evaluate each generated candidate across functionality, user experience, and code quality.  
