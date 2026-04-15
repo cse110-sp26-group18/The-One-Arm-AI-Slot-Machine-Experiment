@@ -1,0 +1,1 @@
+“Fix the music, make the background more colorful and brighter, give the ultimate casino vibe. When it comes to the actual code files, produce an actual documentation file describing existing features and contain instructions on how to add new features and test them. Add more descriptive comments in the .js file.”
