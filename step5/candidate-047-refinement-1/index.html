@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The One-Arm AI - Slot Machine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Animated background canvas for floating money/casino emoji particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="machine-wrapper">
+
+    <!-- Casino light strips that run along the left and right edges of the machine -->
+    <div class="side-lights side-lights-left" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span>
+    </div>
+    <div class="side-lights side-lights-right" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span>
+    </div>
+
+    <div class="slot-machine">
+
+      <!-- Corner accent lights for a classic casino bulb look -->
+      <div class="corner-light corner-tl" aria-hidden="true"></div>
+      <div class="corner-light corner-tr" aria-hidden="true"></div>
+      <div class="corner-light corner-bl" aria-hidden="true"></div>
+      <div class="corner-light corner-br" aria-hidden="true"></div>
+
+      <!-- Header with marquee chase lights and title -->
+      <header class="machine-header">
+        <div class="marquee-lights top-marquee" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <h1>The One-Arm AI</h1>
+        <p class="subtitle">~ where your tokens go to die ~</p>
+      </header>
+
+      <!-- Token balance display, bet cost, and add-tokens button -->
+      <div class="token-display">
+        <div class="token-balance">
+          <span class="token-icon">🪙</span>
+          <span id="token-count">100</span>
+          <span class="token-label">Tokens</span>
+        </div>
+        <button id="add-tokens-btn" class="btn btn-add-tokens" aria-label="Add more tokens">+ Add</button>
+        <div class="token-cost">
+          Bet: <strong><span id="bet-display">10</span></strong>
+        </div>
+      </div>
+
+      <!-- Container for floating +/- token animations on win/loss -->
+      <div class="token-float-container" id="token-float-container"></div>
+
+      <!-- Slot reels and side pull-lever assembly -->
+      <div class="reels-and-lever">
+        <div class="reels-frame">
+          <!-- Three spinning reel columns, each with a scrollable symbol strip -->
+          <div class="reels-window">
+            <div class="reel" id="reel-0"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-1"><div class="reel-strip"></div></div>
+            <div class="reel" id="reel-2"><div class="reel-strip"></div></div>
+          </div>
+          <!-- Horizontal payline indicator across the reels -->
+          <div class="payline"></div>
+        </div>
+        <!-- Classic pull-lever: clickable to trigger a spin -->
+        <div class="lever-assembly" id="lever-assembly">
+          <div class="lever-track"></div>
+          <div class="lever-arm" id="lever-arm">
+            <div class="lever-shaft"></div>
+            <div class="lever-knob" id="lever-knob"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outcome message area (win/lose/jackpot/broke feedback) -->
+      <div class="message-area">
+        <p id="message">Pull the lever, brave fool...</p>
+      </div>
+
+      <!-- Bet adjustment controls and main spin button -->
+      <div class="controls">
+        <div class="bet-controls">
+          <button id="bet-down" class="btn btn-small" aria-label="Decrease bet">-</button>
+          <span class="bet-label"><span id="bet-amount">10</span></span>
+          <button id="bet-up" class="btn btn-small" aria-label="Increase bet">+</button>
+        </div>
+        <button id="spin-btn" class="btn btn-spin">SPIN</button>
+      </div>
+
+      <!-- Music toggle button — controls casino background music -->
+      <div class="music-controls">
+        <button id="music-toggle" class="btn btn-music" aria-label="Toggle music">
+          <span id="music-icon">🔇</span>
+          <span id="music-label">Music</span>
+        </button>
+      </div>
+
+      <!-- Session statistics: spins, wins, losses, win rate, net profit -->
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-value" id="stat-spins">0</span>
+          <span class="stat-label">Spins</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value stat-win" id="stat-wins">0</span>
+          <span class="stat-label">Wins</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value stat-lose" id="stat-losses">0</span>
+          <span class="stat-label">Losses</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-rate">0%</span>
+          <span class="stat-label">Win Rate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-net">0</span>
+          <span class="stat-label">Net</span>
+        </div>
+      </div>
+
+      <!-- Bottom marquee light strip for extra casino ambiance -->
+      <div class="marquee-lights bottom-marquee" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+
+      <!-- Collapsible spin history log -->
+      <div class="history-panel">
+        <button class="history-toggle" id="history-toggle">
+          <span>History</span>
+          <span class="toggle-arrow" id="toggle-arrow">&#9660;</span>
+        </button>
+        <div class="history-body" id="history-body">
+          <div class="history-list" id="history-list">
+            <p class="history-empty">No spins yet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payout reference table showing symbol combos and multipliers -->
+      <div class="paytable">
+        <h2>Payouts</h2>
+        <div class="paytable-grid">
+          <div class="pay-row jackpot"><span class="pay-symbols">🤖🤖🤖</span><span class="pay-mult">x50</span></div>
+          <div class="pay-row"><span class="pay-symbols">🧠🧠🧠</span><span class="pay-mult">x25</span></div>
+          <div class="pay-row"><span class="pay-symbols">💎💎💎</span><span class="pay-mult">x20</span></div>
+          <div class="pay-row"><span class="pay-symbols">🔥🔥🔥</span><span class="pay-mult">x15</span></div>
+          <div class="pay-row"><span class="pay-symbols">☁️☁️☁️</span><span class="pay-mult">x10</span></div>
+          <div class="pay-row"><span class="pay-symbols">⚡⚡⚡</span><span class="pay-mult">x10</span></div>
+          <div class="pay-row"><span class="pay-symbols">🐛🐛🐛</span><span class="pay-mult">x5</span></div>
+          <div class="pay-row"><span class="pay-symbols">2 match</span><span class="pay-mult">x2</span></div>
+        </div>
+      </div>
+
+      <!-- Footer disclaimer -->
+      <footer class="machine-footer">
+        <p>No AI was harmed. Your tokens, however, are gone forever.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal overlay for adding tokens via custom input or quick-select buttons -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      <h2>🪙 Add Tokens</h2>
+      <!-- Custom amount input with confirm button -->
+      <div class="custom-input-group">
+        <input type="number" id="custom-token-input" class="token-input" min="1" max="99999" placeholder="Enter amount..." />
+        <button id="custom-add-btn" class="btn btn-confirm-add">Add</button>
+      </div>
+      <!-- Preset quick-add amount buttons -->
+      <div class="quick-amounts">
+        <button class="quick-btn" data-amount="50">50</button>
+        <button class="quick-btn" data-amount="100">100</button>
+        <button class="quick-btn" data-amount="250">250</button>
+        <button class="quick-btn" data-amount="500">500</button>
+      </div>
+      <p class="modal-fine-print">* Not real money. Your dignity is non-refundable.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
